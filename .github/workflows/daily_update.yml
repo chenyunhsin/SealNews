@@ -1,0 +1,32 @@
+name: Daily News Update
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 這是 UTC 時間 00:00，等於台灣早上 8:00
+  workflow_dispatch: # 讓你也可以手動點擊執行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install feedparser googletrans==4.0.0-rc1
+
+      - name: Run scraper
+        run: python main.py
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add index.html
+          git commit -m "Update news for $(date)" || exit 0
+          git push
