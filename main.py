@@ -5,7 +5,7 @@ import datetime
 # 1. 設定來源
 SOURCES = [
     {"region": "台灣", "url": "https://feeds.feedburner.com/cnaFirstNews", "lang": "zh-tw", "flag": "🇹🇼"},
-    {"region": "日本", "url": "https://www.nhk.or.jp/rss/news/shuyu.xml", "lang": "ja", "flag": "🇯🇵"},
+    {"region": "日本", "url": "https://news.yahoo.co.jp/rss/topics/top-picks.xml", "lang": "ja", "flag": "🇯🇵"},
     {"region": "美國", "url": "https://news.google.com/rss/search?q=when:1d+source:Associated_Press", "lang": "en", "flag": "🇺🇸"}
 ]
 
@@ -16,6 +16,9 @@ def build_site():
 
     for s in SOURCES:
         feed = feedparser.parse(s["url"])
+        if not feed.entries:
+            print(f"警告：無法從 {s['region']} 獲取資料")
+            continue
         region_html = f'<section class="mb-12"><h2 class="text-xl font-bold mb-4 border-l-4 border-blue-500 pl-3">{s["flag"]} {s["region"]}焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">'
         for entry in feed.entries[:3]:
             # 優先取 title，如果沒有就取 summary
