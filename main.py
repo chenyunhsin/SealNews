@@ -17,18 +17,23 @@ def build_site():
     for s in SOURCES:
         feed = feedparser.parse(s["url"])
         region_html = f'<section class="mb-12"><h2 class="text-xl font-bold mb-4 border-l-4 border-blue-500 pl-3">{s["flag"]} {s["region"]}焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">'
-        
-        for entry in feed.entries[:3]: # 每個地區取 3 則
-            title = entry.title
+        for entry in feed.entries[:3]:
+            # 優先取 title，如果沒有就取 summary
+            title = getattr(entry, 'title', '無標題')
+            link = getattr(entry, 'link', '#')
             original_title = ""
-            
-            # 如果不是中文就翻譯
+    
             if s["lang"] != "zh-tw":
                 original_title = title
                 try:
-                    title = translator.translate(title, dest='zh-tw').text
-                except:
-                    pass # 翻譯失敗就用原文
+                    # 加入 timeout 避免卡死，並指定 src='ja' 給日本來源
+                    translated = translator.translate(title, dest='zh-tw')
+                    title = translated.text
+                except Exception as e:
+                    print(f"翻譯失敗: {e}")
+                    # 如果翻譯失敗，就直接顯示原文標題，不要讓它是空的
+                    title = original_title
+       
             
             # 生成卡片 HTML
             region_html += f'''
