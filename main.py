@@ -65,14 +65,17 @@ def build_site():
         </header>
 
         <main class="max-w-6xl mx-auto px-6 py-10">
-            <section class="relative rounded-3xl overflow-hidden mb-16 shadow-2xl aspect-[16/9] md:aspect-[21/9]">
-                <img src="{nasa_data['url']}" class="w-full h-full object-cover" alt="NASA APOD">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 text-white">
-                    <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full w-max mb-3 text-sm">NASA 每日天文圖片</span>
-                    <h2 class="text-2xl md:text-4xl font-bold mb-2">{nasa_data['title']}</h2>
-                    <p class="text-gray-200 text-sm md:text-base line-clamp-2 max-w-2xl">{nasa_data['explanation']}</p>
-                </div>
-            </section>
+            <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" class="block">
+                <section class="relative rounded-3xl overflow-hidden mb-16 shadow-2xl aspect-[16/9] md:aspect-[21/9] group cursor-pointer">
+                    <img src="{nasa_data['url']}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="NASA APOD">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 text-white">
+                        <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full w-max mb-3">NASA 每日天文圖片</span>
+                        <h2 class="text-2xl md:text-4xl font-bold mb-2 group-hover:underline">{nasa_data['title']}</h2>
+                        <p class="text-gray-200 text-sm md:text-base line-clamp-2 max-w-2xl">{nasa_data['explanation']}</p>
+                    </div>
+                </section>
+            </a>
 
             {news_html}
 
