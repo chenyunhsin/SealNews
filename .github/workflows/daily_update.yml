@@ -18,7 +18,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install dependencies
-        run: pip install feedparser googletrans==4.0.0-rc1
+        run: pip install feedparser googletrans==4.0.0-rc1 requests
 
       - name: Run scraper
         run: python main.py
