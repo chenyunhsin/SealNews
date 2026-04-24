@@ -15,14 +15,17 @@
         </header>
 
         <main class="max-w-6xl mx-auto px-6 py-10">
-            <section class="relative rounded-3xl overflow-hidden mb-16 shadow-2xl aspect-[16/9] md:aspect-[21/9]">
-                <img src="https://apod.nasa.gov/apod/image/2604/GHR3777LunaPleiadi_101400_1024.jpg" class="w-full h-full object-cover" alt="NASA APOD">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 text-white">
-                    <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full w-max mb-3 text-sm">NASA 每日天文圖片</span>
-                    <h2 class="text-2xl md:text-4xl font-bold mb-2">年輕的月亮和姊妹星</h2>
-                    <p class="text-gray-200 text-sm md:text-base line-clamp-2 max-w-2xl">在地球上这幅戏剧性的天体景象中，阳光照射下的新月臂似乎拥抱着微弱的月球夜面。追踪天空的单次远摄曝光是在 4 月 19 日晚上拍摄的，当时两天的月亮位于其椭圆轨道上的近地点附近。那天，年轻的月亮也在天空中靠近可爱的昴宿星团。月光被云层遮蔽，昴宿星姐妹星聚集在月亮明亮的新月下方，透过微弱但色彩缤纷的月冕...</p>
-                </div>
-            </section>
+            <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" class="block">
+                <section class="relative rounded-3xl overflow-hidden mb-16 shadow-2xl aspect-[16/9] md:aspect-[21/9] group cursor-pointer">
+                    <img src="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="NASA APOD">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 text-white">
+                        <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full w-max mb-3">NASA 每日天文圖片</span>
+                        <h2 class="text-2xl md:text-4xl font-bold mb-2 group-hover:underline">探索宇宙</h2>
+                        <p class="text-gray-200 text-sm md:text-base line-clamp-2 max-w-2xl"></p>
+                    </div>
+                </section>
+            </a>
 
             <section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇹🇼 台灣焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <a href="https://www.cna.com.tw/news/afe/202505055002.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
