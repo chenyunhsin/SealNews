@@ -62,7 +62,27 @@ def build_site():
                     <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
                 </a>'''
         news_html += '</div></section>'
-
+    # --- 情緒分析邏輯 ---
+    sentiment_color = "bg-slate-50" # 預設顏色 (中性)
+    mood_text = "平穩的一天"
+    
+    try:
+        # 我們拿美國新聞的原文標題來分析，因為 TextBlob 對英文最準
+        all_us_titles = " ".join([getattr(e, 'title', '') for e in feedparser.parse(sources[2]["url"]).entries[:5]])
+        analysis = TextBlob(all_us_titles)
+        score = analysis.sentiment.polarity # 分數介於 -1 到 1
+        
+        if score > 0.1:
+            sentiment_color = "bg-orange-50" # 正向：暖橘色
+            mood_text = "今日世界氣氛：充滿希望"
+        elif score < -0.1:
+            sentiment_color = "bg-red-50" # 負向：微醺紅
+            mood_text = "今日世界氣氛：略顯緊張"
+        else:
+            sentiment_color = "bg-slate-50" # 中性：清爽灰
+            mood_text = "今日世界氣氛：平靜日常"
+    except:
+        pass
     # --- 4. 組合最終 HTML ---
     full_html = f'''
     <!DOCTYPE html>
@@ -74,10 +94,13 @@ def build_site():
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
         <style>body {{ font-family: 'Noto Sans TC', sans-serif; }}</style>
     </head>
-    <body class="bg-slate-50 text-slate-900">
-        <header class="bg-white border-b px-6 py-8 text-center shadow-sm">
+
+
+    
+    <body class="{sentiment_color} text-slate-900 transition-colors duration-1000">
+        <header class="bg-white/80 backdrop-blur-md border-b px-6 py-8 text-center shadow-sm sticky top-0 z-50">
             <h1 class="text-4xl font-black text-slate-800 tracking-tight">世界局勢晨報</h1>
-            <p class="text-slate-500 mt-2 font-medium">{today_str} · 全球資訊同步更新</p>
+            <p class="text-slate-500 mt-2 font-medium">{today_str} · {mood_text}</p>
         </header>
 
         <main class="max-w-6xl mx-auto px-6 py-10">
