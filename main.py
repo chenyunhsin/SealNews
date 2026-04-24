@@ -2,42 +2,43 @@ import feedparser
 from googletrans import Translator
 import datetime
 import requests
+from textblob import TextBlob  # <--- 確保這行有加！
 
 def build_site():
     translator = Translator()
     today_str = datetime.datetime.now().strftime("%Y-%m-%d")
     
-    # --- 1. 抓取 NASA 每日天文圖 (APOD) ---
-    nasa_data = {"url": "", "title": "", "explanation": ""}
+    # --- 1. 抓取 NASA 每日天文圖 ---
+    nasa_data = {"url": "https://images.nasa.gov/images/as11-40-5874_orig.jpg", "title": "探索宇宙", "explanation": ""}
     try:
-        # 重點修正：網址加上了 &thumbs=True
         api_url = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=True"
-        resp = requests.get(api_url).json()
+        resp = requests.get(api_url, timeout=10).json()
         
-        # 判斷媒體類型
+        # 處理圖片網址
         if resp.get("media_type") == "video":
-            # 現在有了 thumbs=True，這裡就能順利抓到影片縮圖
-            nasa_data["url"] = resp.get("thumbnail_url", "https://images.nasa.gov/images/as11-40-5874_orig.jpg")
+            nasa_data["url"] = resp.get("thumbnail_url", nasa_data["url"])
         else:
-            nasa_data["url"] = resp.get("url", "https://images.nasa.gov/images/as11-40-5874_orig.jpg")
+            nasa_data["url"] = resp.get("url", nasa_data["url"])
+        
+        # 翻譯標題 (分開處理，失敗也不影響圖片)
+        raw_title = resp.get("title", "NASA APOD")
+        try:
+            nasa_data["title"] = translator.translate(raw_title, dest='zh-tw').text
+        except:
+            nasa_data["title"] = raw_title
             
-        nasa_data["title"] = translator.translate(resp.get("title", "探索宇宙"), dest='zh-tw').text
-        explanation = resp.get("explanation", "")
-        nasa_data["explanation"] = translator.translate(explanation, dest='zh-tw').text[:150] + "..."
-        
-        # 除錯用：在 GitHub Actions Log 裡印出網址，方便確認
-        print(f"NASA Image URL: {nasa_data['url']}")
-        
+        raw_exp = resp.get("explanation", "")
+        try:
+            nasa_data["explanation"] = translator.translate(raw_exp, dest='zh-tw').text[:150] + "..."
+        except:
+            nasa_data["explanation"] = raw_exp[:150] + "..."
     except Exception as e:
-        print(f"NASA 抓取錯誤: {e}")
-        nasa_data["title"] = "探索宇宙"
-        nasa_data["url"] = "https://images.nasa.gov/images/as11-40-5874_orig.jpg"
-    
+        print(f"NASA Error: {e}")
 
     # --- 2. 抓取每日貓貓 ---
-    cat_url = "https://cataas.com/cat" # 簡單好用的貓貓 API
+    cat_url = "https://cataas.com/cat"
 
-    # --- 3. 新聞來源設定 ---
+    # --- 3. 新聞與情緒分析 ---
     sources = [
         {"region": "台灣", "url": "https://feeds.feedburner.com/cnaFirstNews", "lang": "zh-tw", "flag": "🇹🇼"},
         {"region": "日本", "url": "https://news.yahoo.co.jp/rss/topics/top-picks.xml", "lang": "ja", "flag": "🇯🇵"},
@@ -45,96 +46,71 @@ def build_site():
     ]
 
     news_html = ""
+    us_titles = [] # 用來存美國新聞原文做分析
+    
     for s in sources:
         feed = feedparser.parse(s["url"])
-        news_html += f'<section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">{s["flag"]} {s["region"]}焦點</h2>'
-        news_html += '<div class="grid grid-cols-1 md:grid-cols-3 gap-6">'
-        
+        news_html += f'<section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">{s["flag"]} {s["region"]}焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">'
         for entry in feed.entries[:3]:
             title = entry.title
+            if s["region"] == "美國": us_titles.append(title)
             if s["lang"] != "zh-tw":
                 try: title = translator.translate(title, dest='zh-tw').text
                 except: pass
-            
-            news_html += f'''
-                <a href="{entry.link}" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">{title}</h3>
-                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
-                </a>'''
+            news_html += f'<a href="{entry.link}" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"><h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">{title}</h3><span class="text-blue-500 text-sm font-medium">閱讀更多 →</span></a>'
         news_html += '</div></section>'
-    # --- 情緒分析邏輯 ---
-    sentiment_color = "bg-slate-50" # 預設顏色 (中性)
+
+    # --- 情緒換膚邏輯 ---
+    sentiment_color = "bg-slate-50"
     mood_text = "平穩的一天"
-    
     try:
-        # 我們拿美國新聞的原文標題來分析，因為 TextBlob 對英文最準
-        all_us_titles = " ".join([getattr(e, 'title', '') for e in feedparser.parse(sources[2]["url"]).entries[:5]])
-        analysis = TextBlob(all_us_titles)
-        score = analysis.sentiment.polarity # 分數介於 -1 到 1
-        
+        analysis = TextBlob(" ".join(us_titles))
+        score = analysis.sentiment.polarity
         if score > 0.1:
-            sentiment_color = "bg-orange-50" # 正向：暖橘色
+            sentiment_color = "bg-amber-50" # 溫暖金
             mood_text = "今日世界氣氛：充滿希望"
         elif score < -0.1:
-            sentiment_color = "bg-red-50" # 負向：微醺紅
+            sentiment_color = "bg-rose-50" # 警戒紅
             mood_text = "今日世界氣氛：略顯緊張"
-        else:
-            sentiment_color = "bg-slate-50" # 中性：清爽灰
-            mood_text = "今日世界氣氛：平靜日常"
-    except:
-        pass
-    # --- 4. 組合最終 HTML ---
+    except: pass
+
+    # --- 4. 生成 HTML (保持你之前的漂亮模板) ---
     full_html = f'''
     <!DOCTYPE html>
     <html lang="zh-TW">
     <head>
         <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.tailwindcss.com"></script>
-        <title>世界局勢晨報 x NASA x 貓貓</title>
+        <title>SealNews</title>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
-        <style>body {{ font-family: 'Noto Sans TC', sans-serif; }}</style>
+        <style>body {{ font-family: 'Noto Sans TC', sans-serif; transition: background-color 1s ease; }}</style>
     </head>
-
-
-    
-    <body class="{sentiment_color} text-slate-900 transition-colors duration-1000">
+    <body class="{sentiment_color} text-slate-900 pb-20">
         <header class="bg-white/80 backdrop-blur-md border-b px-6 py-8 text-center shadow-sm sticky top-0 z-50">
-            <h1 class="text-4xl font-black text-slate-800 tracking-tight">世界局勢晨報</h1>
+            <h1 class="text-4xl font-black text-slate-800">世界局勢晨報</h1>
             <p class="text-slate-500 mt-2 font-medium">{today_str} · {mood_text}</p>
         </header>
-
         <main class="max-w-6xl mx-auto px-6 py-10">
-            <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" class="block">
-                <section class="relative rounded-3xl overflow-hidden mb-16 shadow-2xl aspect-[16/9] md:aspect-[21/9] group cursor-pointer">
-                    <img src="{nasa_data['url']}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="NASA APOD">
-                    
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 text-white">
-                        <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full w-max mb-3">NASA 每日天文圖片</span>
-                        <h2 class="text-2xl md:text-4xl font-bold mb-2 group-hover:underline">{nasa_data['title']}</h2>
-                        <p class="text-gray-200 text-sm md:text-base line-clamp-2 max-w-2xl">{nasa_data['explanation']}</p>
+            <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" class="block mb-16">
+                <section class="relative rounded-3xl overflow-hidden shadow-2xl aspect-[16/9] md:aspect-[21/9] group">
+                    <img src="{nasa_data['url']}" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 p-8 flex flex-col justify-end text-white">
+                        <span class="bg-orange-500 text-xs font-bold px-3 py-1 rounded-full w-max mb-3">NASA 每日天文圖片</span>
+                        <h2 class="text-2xl md:text-4xl font-bold mb-2 underline-offset-4 group-hover:underline">{nasa_data['title']}</h2>
+                        <p class="text-gray-200 text-sm line-clamp-2">{nasa_data['explanation']}</p>
                     </div>
                 </section>
             </a>
-
             {news_html}
-
             <section class="mt-20 text-center border-t pt-12">
-                <h2 class="text-2xl font-bold mb-6 text-slate-800">今日療癒貓貓 🐈</h2>
-                <div class="max-w-md mx-auto rounded-3xl overflow-hidden shadow-lg border-4 border-white">
-                    <img src="{cat_url}" class="w-full h-64 object-cover" alt="Daily Cat">
-                </div>
-                <p class="mt-4 text-slate-500 italic text-sm">「不管局勢多緊張，總有一隻貓在等你。」</p>
+                <h2 class="text-2xl font-bold mb-6">今日療癒貓貓 🐈</h2>
+                <div class="max-w-md mx-auto rounded-3xl overflow-hidden shadow-lg border-4 border-white"><img src="{cat_url}" class="w-full"></div>
             </section>
         </main>
-
-        <footer class="text-center py-12 text-slate-400 text-sm font-light">
-            &copy; {today_str} SealNews · 每天早上 8:00 自動更新
-        </footer>
     </body>
     </html>
     '''
-    with open("index.html", "w", encoding="utf-8") as f:
-        f.write(full_html)
+    with open("index.html", "w", encoding="utf-8") as f: f.write(full_html)
 
 if __name__ == "__main__":
     build_site()
