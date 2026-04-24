@@ -10,19 +10,24 @@ def build_site():
     # --- 1. 抓取 NASA 每日天文圖 (APOD) ---
     nasa_data = {"url": "", "title": "", "explanation": ""}
     try:
-        resp = requests.get("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY").json()
+        # 重點修正：網址加上了 &thumbs=True
+        api_url = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=True"
+        resp = requests.get(api_url).json()
         
-        # 關鍵修正：判斷是不是影片
+        # 判斷媒體類型
         if resp.get("media_type") == "video":
-            # 如果是影片，抓不到圖片，我們就用 NASA 的經典地讀圖當替代，或者抓影片縮圖
+            # 現在有了 thumbs=True，這裡就能順利抓到影片縮圖
             nasa_data["url"] = resp.get("thumbnail_url", "https://images.nasa.gov/images/as11-40-5874_orig.jpg")
         else:
-            nasa_data["url"] = resp.get("url", "")
+            nasa_data["url"] = resp.get("url", "https://images.nasa.gov/images/as11-40-5874_orig.jpg")
             
-        # 翻譯標題與內容
         nasa_data["title"] = translator.translate(resp.get("title", "探索宇宙"), dest='zh-tw').text
         explanation = resp.get("explanation", "")
         nasa_data["explanation"] = translator.translate(explanation, dest='zh-tw').text[:150] + "..."
+        
+        # 除錯用：在 GitHub Actions Log 裡印出網址，方便確認
+        print(f"NASA Image URL: {nasa_data['url']}")
+        
     except Exception as e:
         print(f"NASA 抓取錯誤: {e}")
         nasa_data["title"] = "探索宇宙"
