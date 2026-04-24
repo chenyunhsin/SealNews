@@ -4,32 +4,81 @@
     <head>
         <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.tailwindcss.com"></script>
-        <title>SealNews</title>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
-        <style>body { font-family: 'Noto Sans TC', sans-serif; transition: background-color 1s ease; }</style>
+        <title>SealNews | 世界局勢</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
+            body { font-family: 'Noto Sans TC', sans-serif; transition: background-color 1s ease; }
+            .nasa-gradient { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%); }
+        </style>
     </head>
     <body class="bg-amber-50 text-slate-900 pb-20">
         <header class="bg-white/80 backdrop-blur-md border-b px-6 py-8 text-center shadow-sm sticky top-0 z-50">
-            <h1 class="text-4xl font-black text-slate-800">世界局勢晨報</h1>
-            <p class="text-slate-500 mt-2 font-medium">2026-04-24 · 今日世界氣氛：充滿希望</p>
+            <h1 class="text-4xl font-black text-slate-800 tracking-tighter italic">SEAL NEWS</h1>
+            <p class="text-slate-500 mt-2 font-medium tracking-widest">2026-04-24 · 今日世界氣味：充滿希望</p>
         </header>
+
         <main class="max-w-6xl mx-auto px-6 py-10">
             <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" class="block mb-16">
-                <section class="relative rounded-3xl overflow-hidden shadow-2xl aspect-[16/9] md:aspect-[21/9] group">
-                    <img src="https://images.nasa.gov/images/as11-40-5874_orig.jpg" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 p-8 flex flex-col justify-end text-white">
-                        <span class="bg-orange-500 text-xs font-bold px-3 py-1 rounded-full w-max mb-3">NASA 每日天文圖片</span>
-                        <h2 class="text-2xl md:text-4xl font-bold mb-2 underline-offset-4 group-hover:underline">探索宇宙</h2>
-                        <p class="text-gray-200 text-sm line-clamp-2"></p>
+                <section class="relative rounded-[2rem] overflow-hidden shadow-2xl aspect-[16/9] md:aspect-[21/9] group bg-black">
+                    <img src="https://apod.nasa.gov/apod/image/2604/GHR3777LunaPleiadi_101400_1024.jpg" loading="lazy" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100">
+                    <div class="absolute inset-0 nasa-gradient p-8 flex flex-col justify-end text-white">
+                        <span class="bg-blue-600 text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full w-max mb-4">NASA Daily Exploration</span>
+                        <h2 class="text-2xl md:text-5xl font-black mb-3 group-hover:text-blue-300 transition">年輕的月亮和姊妹星</h2>
+                        <p class="text-gray-300 text-sm md:text-base line-clamp-2 max-w-3xl font-light">在地球上這幅戲劇性的天體景像中，陽光照射下的新月臂似乎擁抱著微弱的月球夜面。追蹤天空的單次遠攝曝光是在 4 月 19 日晚上拍攝的，當時兩天的月亮位於其橢圓軌道上的近地點附近。那天，年輕的月亮也在天空中靠近可愛的昴宿星團。月光被雲層遮蔽，昴宿星姐妹星聚集在月亮明亮的新月下方，透過微弱但色彩繽紛的月冕...</p>
                     </div>
                 </section>
             </a>
-            <section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇹🇼 台灣焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><a href="https://www.cna.com.tw/news/afe/202505055002.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"><h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">新台幣繼續衝 早盤再度飆漲逾1元衝上29元</h3><span class="text-blue-500 text-sm font-medium">閱讀更多 →</span></a><a href="https://www.cna.com.tw/news/ahel/202505055001.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"><h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">早安世界》本週2波鋒面接力晴雨交替 6、7日各地恐有大雨</h3><span class="text-blue-500 text-sm font-medium">閱讀更多 →</span></a><a href="https://www.cna.com.tw/news/afe/202505050023.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"><h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">新台幣開盤為30.91元 早盤勁揚逾8角</h3><span class="text-blue-500 text-sm font-medium">閱讀更多 →</span></a></div></section><section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇯🇵 日本焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><a href="https://news.yahoo.co.jp/pickup/6577461?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"><h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">川普並不急於與伊朗達成協議</h3><span class="text-blue-500 text-sm font-medium">閱讀更多 →</span></a><a href="https://news.yahoo.co.jp/pickup/6577447?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"><h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">翻車事故：文部科學省在同誌社進行現場調查</h3><span class="text-blue-500 text-sm font-medium">閱讀更多 →</span></a><a href="https://news.yahoo.co.jp/pickup/6577474?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"><h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">動物園焚化爐發現屍體？官員感到驚訝</h3><span class="text-blue-500 text-sm font-medium">閱讀更多 →</span></a></div></section><section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇺🇸 美國焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxPWG05UnVOY05fSnJGdUdianJKQzRKX0doYklmNFlkVVJFTzZRSktZMG1NcTZKTmVQQS1WeERjV2IyRF9SS1h2TFptUDNUWFYwanRGVkVuMFloVjR2T3NXa0JwbFgxOWRDeWl4LWgxVllRODNIVEFIZEZXYm5ockNWZnZmSFZsNVpBS2t1QS1fVG0zbFd3Q3FKNFI2ZmRFenPSAbMBQVVfeXFMT0F4V1hURVhpRGxhNnFBdkhGMVNwbi1QRWRib19vMXJqWkNtZko1cmlKZTZxbDM0eUZGREpKcGt5cjZoX2p6VFdTSnJWbU90UEFaNlFXWnVBNGoyNlczbXZuTXRWYy05UDAydzgzRC1EZmJscUZLRE9OTFA5T0loZXhPc0M4Ujc3c21adml6NDJmSHlXbXdwNVk3VmFfSVNlVVItNjgtX3c0dDFWcmtjR21zSzQ?oc=5" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"><h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">志願消防員付出了更多時間和更多時間來確保勞德代爾縣的安全 - WTOK</h3><span class="text-blue-500 text-sm font-medium">閱讀更多 →</span></a><a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxPRjQxaUlITl8yeDZkbkpNQ3pydk94LUJpTHNUV0FwY2p3M0VYLWFGM1Y0dUVzZU1BRTRabnA1LUE1cFFmaUFnMmFfZU9nQ1JFVFNhYm1lVDJsOXo5UW42TUFwdUFpWFlFNWlROHpuTHRldmE5dXN6SDRxT21saFE1M1lKR1pTQk94Y1N6TkpWMlZyT1RualQ5V25LZnhpUml3MkM1c0ZvV1g?oc=5" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"><h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">Party City 與 Staples 合作捲土重來 - 阿拉斯加的新聞來源</h3><span class="text-blue-500 text-sm font-medium">閱讀更多 →</span></a><a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxQa2lURldXbkdlcVFBMmVjTjlnT1VxeXNRNWtpZnhkMGZNdVRvd000Vk1ob2RFTnJ6VkRwYUc3LXhVUzN4S2YweC1tcnlZaXpsUGRzSGx1aE4xbFFTNHdCZDE0X0Q0X29Tb3MxSml0dzU4UGZrcVFTa2sxSU5CVi1qODdjOXNiUVctbDFZcG1oZ2FwSlZvaG5qN0FEbEpKWmhON3hfeGZ2b05Zd9IBvgFBVV95cUxPLTR1NlBFbHEtUkE4RWYzNjAySmRsekpkNGRVR21pZ215YjR3ZDU4WEEzNTBYNUVXWUIyZFc4U3NyN2FmczVSc1VoZWdteE93ME5wc2hWSDlFU3pWU01SOWhiSExLSW1oWndLeFRISTl2OXBldVF3dHI3bEdRX1JnYlB5d0g3R0ZZN1M2c2E1UEtOekc4amFCN2pGRVV0dHg5OE1nbElPcnBuMWk1UlJNdkZRNG9ZMURtblk2anBB?oc=5" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"><h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">著名指揮家和作曲家邁克爾·蒂爾森·托馬斯去世，享年 81 歲 - Upper Michigan's Source</h3><span class="text-blue-500 text-sm font-medium">閱讀更多 →</span></a></div></section>
-            <section class="mt-20 text-center border-t pt-12">
-                <h2 class="text-2xl font-bold mb-6">今日療癒貓貓 🐈</h2>
-                <div class="max-w-md mx-auto rounded-3xl overflow-hidden shadow-lg border-4 border-white"><img src="https://cataas.com/cat" class="w-full"></div>
+
+            <section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇹🇼 台灣焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="https://www.cna.com.tw/news/afe/202505055002.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">新台幣繼續衝 早盤再度飆漲逾1元衝上29元</h3>
+                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                </a>
+                <a href="https://www.cna.com.tw/news/ahel/202505055001.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">早安世界》本週2波鋒面接力晴雨交替 6、7日各地恐有大雨</h3>
+                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                </a>
+                <a href="https://www.cna.com.tw/news/afe/202505050023.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">新台幣開盤為30.91元 早盤勁揚逾8角</h3>
+                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                </a></div></section><section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇯🇵 日本焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="https://news.yahoo.co.jp/pickup/6577461?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">川普並不急於與伊朗達成協議</h3>
+                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                </a>
+                <a href="https://news.yahoo.co.jp/pickup/6577447?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">翻車事故：文部科學省在同誌社進行現場調查</h3>
+                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                </a>
+                <a href="https://news.yahoo.co.jp/pickup/6577474?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">動物園焚化爐發現屍體？官員感到驚訝</h3>
+                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                </a></div></section><section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇺🇸 美國焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxPWG05UnVOY05fSnJGdUdianJKQzRKX0doYklmNFlkVVJFTzZRSktZMG1NcTZKTmVQQS1WeERjV2IyRF9SS1h2TFptUDNUWFYwanRGVkVuMFloVjR2T3NXa0JwbFgxOWRDeWl4LWgxVllRODNIVEFIZEZXYm5ockNWZnZmSFZsNVpBS2t1QS1fVG0zbFd3Q3FKNFI2ZmRFenPSAbMBQVVfeXFMT0F4V1hURVhpRGxhNnFBdkhGMVNwbi1QRWRib19vMXJqWkNtZko1cmlKZTZxbDM0eUZGREpKcGt5cjZoX2p6VFdTSnJWbU90UEFaNlFXWnVBNGoyNlczbXZuTXRWYy05UDAydzgzRC1EZmJscUZLRE9OTFA5T0loZXhPc0M4Ujc3c21adml6NDJmSHlXbXdwNVk3VmFfSVNlVVItNjgtX3c0dDFWcmtjR21zSzQ?oc=5" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">志願消防員付出了更多時間和更多時間來確保勞德代爾縣的安全 - WTOK</h3>
+                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                </a>
+                <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxPRjQxaUlITl8yeDZkbkpNQ3pydk94LUJpTHNUV0FwY2p3M0VYLWFGM1Y0dUVzZU1BRTRabnA1LUE1cFFmaUFnMmFfZU9nQ1JFVFNhYm1lVDJsOXo5UW42TUFwdUFpWFlFNWlROHpuTHRldmE5dXN6SDRxT21saFE1M1lKR1pTQk94Y1N6TkpWMlZyT1RualQ5V25LZnhpUml3MkM1c0ZvV1g?oc=5" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">Party City 與 Staples 合作捲土重來 - 阿拉斯加的新聞來源</h3>
+                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                </a>
+                <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxQa2lURldXbkdlcVFBMmVjTjlnT1VxeXNRNWtpZnhkMGZNdVRvd000Vk1ob2RFTnJ6VkRwYUc3LXhVUzN4S2YweC1tcnlZaXpsUGRzSGx1aE4xbFFTNHdCZDE0X0Q0X29Tb3MxSml0dzU4UGZrcVFTa2sxSU5CVi1qODdjOXNiUVctbDFZcG1oZ2FwSlZvaG5qN0FEbEpKWmhON3hfeGZ2b05Zd9IBvgFBVV95cUxPLTR1NlBFbHEtUkE4RWYzNjAySmRsekpkNGRVR21pZ215YjR3ZDU4WEEzNTBYNUVXWUIyZFc4U3NyN2FmczVSc1VoZWdteE93ME5wc2hWSDlFU3pWU01SOWhiSExLSW1oWndLeFRISTl2OXBldVF3dHI3bEdRX1JnYlB5d0g3R0ZZN1M2c2E1UEtOekc4amFCN2pGRVV0dHg5OE1nbElPcnBuMWk1UlJNdkZRNG9ZMURtblk2anBB?oc=5" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">著名指揮家和作曲家邁克爾·蒂爾森·托馬斯去世，享年 81 歲 - Upper Michigan's Source</h3>
+                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                </a></div></section>
+
+            <section class="mt-24 text-center border-t border-slate-200 pt-16">
+                <h2 class="text-3xl font-black mb-8 text-slate-800 tracking-tighter">今日份的療癒 🐈</h2>
+                <div class="max-w-lg mx-auto rounded-[2rem] overflow-hidden shadow-2xl border-[12px] border-white bg-white">
+                    <img src="https://cdn2.thecatapi.com/images/13m.gif" loading="lazy" class="w-full h-auto min-h-[300px] object-cover" alt="Daily Cat">
+                </div>
+                <p class="mt-8 text-slate-400 italic font-medium tracking-wide">「不管世界局勢如何變幻，總有一隻貓在默默陪著你。」</p>
             </section>
         </main>
+
+        <footer class="text-center py-12 text-slate-300 text-xs tracking-widest uppercase font-bold">
+            &copy; 2026-04-24 SealNews Automation
+        </footer>
     </body>
     </html>
     
