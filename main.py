@@ -10,13 +10,24 @@ def build_site():
     # --- 1. 抓取 NASA 每日天文圖 (APOD) ---
     nasa_data = {"url": "", "title": "", "explanation": ""}
     try:
-        # 使用 NASA 免費 API (demo key)
         resp = requests.get("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY").json()
-        nasa_data["url"] = resp.get("url", "")
-        nasa_data["title"] = translator.translate(resp.get("title", ""), dest='zh-tw').text
-        nasa_data["explanation"] = translator.translate(resp.get("explanation", ""), dest='zh-tw').text[:150] + "..."
-    except:
+        
+        # 關鍵修正：判斷是不是影片
+        if resp.get("media_type") == "video":
+            # 如果是影片，抓不到圖片，我們就用 NASA 的經典地讀圖當替代，或者抓影片縮圖
+            nasa_data["url"] = resp.get("thumbnail_url", "https://images.nasa.gov/images/as11-40-5874_orig.jpg")
+        else:
+            nasa_data["url"] = resp.get("url", "")
+            
+        # 翻譯標題與內容
+        nasa_data["title"] = translator.translate(resp.get("title", "探索宇宙"), dest='zh-tw').text
+        explanation = resp.get("explanation", "")
+        nasa_data["explanation"] = translator.translate(explanation, dest='zh-tw').text[:150] + "..."
+    except Exception as e:
+        print(f"NASA 抓取錯誤: {e}")
         nasa_data["title"] = "探索宇宙"
+        nasa_data["url"] = "https://images.nasa.gov/images/as11-40-5874_orig.jpg"
+    
 
     # --- 2. 抓取每日貓貓 ---
     cat_url = "https://cataas.com/cat" # 簡單好用的貓貓 API
