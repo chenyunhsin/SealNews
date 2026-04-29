@@ -25,7 +25,7 @@ def build_site():
     for s in sources:
         try:
             feed = feedparser.parse(s["u"])
-            news_html += f'<h2 class="text-2xl font-bold mt-10 mb-4">{s["f"]} {s["r"]}焦點</h2>'
+            news_html += f'<h2 class="text-2xl font-bold mt-10 mb-4">{s["f"]} {s["region" if "region" in s else "r"]}焦點</h2>'
             news_html += '<div class="grid grid-cols-1 md:grid-cols-3 gap-4">'
             for e in feed.entries[:3]:
                 news_html += f'<a href="{e.link}" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:bg-slate-50 transition"><h3 class="font-bold text-sm text-slate-800">{e.title}</h3></a>'
@@ -40,18 +40,20 @@ def build_site():
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <title>SealNews | 腳印藝術</title>
+    <title>SealNews | 繽紛腳印藝術</title>
 </head>
 <body class="bg-slate-50 p-6 text-slate-900">
     <div class="max-w-6xl mx-auto">
-        <header class="text-center mb-10"><h1 class="text-4xl font-black">SEAL NEWS</h1><p class="text-slate-500">[DATE]</p></header>
+        <header class="text-center mb-10"><h1 class="text-4xl font-black tracking-tighter">SEAL NEWS</h1><p class="text-slate-500">[DATE]</p></header>
 
         <section class="rounded-3xl overflow-hidden shadow-lg bg-black text-white mb-10">
             <img src="[NASA_URL]" class="w-full h-64 object-cover opacity-80">
             <div class="p-6"><h2 class="text-xl font-bold">[NASA_TITLE]</h2><p class="text-sm opacity-70">[NASA_DESC]</p></div>
         </section>
 
-        <section class="mb-16 text-center border-b pb-12">
+        [NEWS_CONTENT]
+
+        <section class="mt-20 text-center border-t border-gray-200 pt-12">
             <h2 class="text-2xl font-bold mb-6 text-slate-800">今日份的療癒 🐈</h2>
             <div class="max-w-md mx-auto rounded-3xl overflow-hidden shadow-lg border-4 border-white">
                 <img src="https://cataas.com/cat" class="w-full h-64 object-cover" alt="Daily Cat">
@@ -59,28 +61,37 @@ def build_site():
             <p class="mt-4 text-slate-500 italic text-sm">「不管世界如何，總有一隻貓在等著你。」</p>
         </section>
 
-        [NEWS_CONTENT]
-
-        <section class="mt-20 border-t pt-10 text-center">
-            <h2 class="text-2xl font-bold mb-2">狗狗的腳印藝術 0.0</h2>
-            <p class="text-sm text-slate-500 mb-6">看著腳印在畫布上慢慢留下...（滑鼠是項圈）</p>
-            <div id="canvas-wrap" class="w-full h-[400px] bg-white rounded-3xl shadow-inner border relative overflow-hidden"></div>
+        <section class="mt-16 border-t border-gray-200 pt-10 text-center">
+            <h2 class="text-2xl font-bold mb-2 text-slate-800">繽紛腳印藝術 0.0</h2>
+            <p class="text-sm text-slate-500 mb-6">狗狗正在興奮地留下彩色足跡！（滑鼠靠近會繞圈）</p>
+            <div id="canvas-wrap" class="w-full h-[450px] bg-white rounded-3xl shadow-inner border relative overflow-hidden"></div>
         </section>
     </div>
 
+    <footer class="text-center py-10 text-gray-400 text-xs mt-10 border-t">© [DATE] SealNews Automation</footer>
+
     <script>
     let dog;
+    let currentHue = 0;
+
     function setup() {
         let c = document.getElementById('canvas-wrap');
-        let cnv = createCanvas(c.offsetWidth, 400);
+        let cnv = createCanvas(c.offsetWidth, 450);
         cnv.parent('canvas-wrap');
-        dog = { pos: createVector(width/2, height/2), ang: 0, rot: 0 };
-        background(255);
+        colorMode(HSB, 360, 100, 100, 1);
+        // 初始化狗狗位置
+        dog = { 
+            pos: createVector(width/2, height/2), 
+            ang: 0, 
+            rot: 0,
+            stepCounter: 0 
+        };
+        background(0, 0, 100); 
     }
 
     function draw() {
-        // 稍微加強刷新速度，讓舊腳印淡出，軌跡才會明顯
-        background(255, 20); 
+        fill(0, 0, 100, 0.04); 
+        rect(0, 0, width, height);
 
         let t = createVector(mouseX, mouseY);
         if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {
@@ -88,34 +99,48 @@ def build_site():
         }
 
         let d = dist(dog.pos.x, dog.pos.y, t.x, t.y);
-        if (d < 130) {
+        
+        // 運動運算
+        if (d < 150) {
             dog.ang += 0.04; 
-            dog.pos.x = t.x + cos(dog.ang) * 90;
-            dog.pos.y = t.y + sin(dog.ang) * 90;
+            dog.pos.x = t.x + cos(dog.ang) * 95;
+            dog.pos.y = t.y + sin(dog.ang) * 95;
             dog.rot = dog.ang + PI/2;
         } else {
             let v = p5.Vector.sub(t, dog.pos);
             dog.rot = v.heading() + PI/2;
-            v.setMag(1.2);
+            v.setMag(1.4);
             dog.pos.add(v);
         }
 
-        // 繪製腳印：加入左右腳偏移邏輯
-        if (frameCount % 30 == 0) {
-            let sideOffset = (frameCount % 60 == 0) ? 8 : -8; // 模擬左右腳
-            drawPaw(dog.pos.x + sideOffset, dog.pos.y, dog.rot);
+        // 四足步態運算：每 10 幀判斷一次腳步
+        if (frameCount % 10 == 0) {
+            currentHue = (currentHue + 15) % 360;
+            dog.stepCounter++;
+
+            // 模擬四足交替邏輯 (Trot 步態)
+            // 第一步：左前腳 + 右後腳
+            // 第二步：右前腳 + 左後腳
+            let isFirstPhase = (dog.stepCounter % 2 == 0);
+            
+            if (isFirstPhase) {
+                drawPaw(dog.pos.x - 12, dog.pos.y - 5, dog.rot, currentHue); // 左前
+                drawPaw(dog.pos.x + 10, dog.pos.y + 15, dog.rot, currentHue); // 右後
+            } else {
+                drawPaw(dog.pos.x + 12, dog.pos.y - 5, dog.rot, currentHue); // 右前
+                drawPaw(dog.pos.x - 10, dog.pos.y + 15, dog.rot, currentHue); // 左後
+            }
         }
     }
 
-    function drawPaw(x, y, r) {
+    function drawPaw(x, y, r, h) {
         push();
         translate(x, y);
         rotate(r);
         noStroke();
-        fill(100, 80, 60, 180); // 稍微加深顏色
-        // 大肉墊 (倒心形)
-        ellipse(0, 0, 10, 8);
-        // 四顆小趾頭
+        fill(h, 60, 80, 0.5);
+        // 縮小一點腳印，讓四隻腳看起來更精緻
+        ellipse(0, 0, 10, 8); 
         ellipse(-5, -6, 4, 4);
         ellipse(-1.5, -8, 4, 4);
         ellipse(1.5, -8, 4, 4);
@@ -125,8 +150,10 @@ def build_site():
 
     function windowResized() {
         let c = document.getElementById('canvas-wrap');
-        if(c) resizeCanvas(c.offsetWidth, 400);
-        background(255);
+        if(c) {
+            resizeCanvas(c.offsetWidth, 450);
+            background(0, 0, 100);
+        }
     }
     </script>
 </body>
