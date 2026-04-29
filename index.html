@@ -7,174 +7,119 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <title>SealNews | Real-time Dashboard</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=Noto+Sans+TC:wght@400;900&display=swap');
-        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; background-color: #f4f4f5; }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; }
     </style>
 </head>
-<body class="p-6 md:p-12">
-    <div class="max-w-5xl mx-auto">
-        <header class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-            <div>
-                <h1 class="text-6xl font-black tracking-tighter text-slate-900">SEAL NEWS</h1>
-                <p class="text-slate-500 font-bold uppercase tracking-widest text-xs mt-2">Information Hub / 2026-04-29</p>
-            </div>
-            <div id="realtime-clock" class="text-right font-black text-2xl text-slate-900 tabular-nums"></div>
+<body class="p-4 md:p-10 text-slate-900">
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-5xl font-black tracking-tighter">SEAL NEWS</h1>
+            <p class="text-slate-400 text-xs mt-2 font-bold uppercase tracking-widest">2026-04-29</p>
         </header>
 
-        <section class="rounded-[2.5rem] overflow-hidden shadow-2xl bg-black text-white relative h-[400px] mb-12 group">
+        <section class="rounded-[2.5rem] overflow-hidden shadow-2xl bg-black text-white relative h-64 md:h-80 mb-10 group">
             <img src="https://apod.nasa.gov/apod/image/2604/moon_venus_pleiades_zoom.jpg" class="w-full h-full object-cover opacity-70 group-hover:scale-105 transition duration-1000">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-10">
-                <span class="text-xs font-black tracking-widest uppercase opacity-60 mb-2 font-mono">NASA Daily Discovery</span>
-                <h2 class="text-4xl font-black tracking-tight">The Moon, Venus, and the Pleiades</h2>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 flex flex-col justify-end p-6 md:p-10">
+                <h2 class="text-2xl md:text-3xl font-black tracking-tight">The Moon, Venus, and the Pleiades</h2>
             </div>
         </section>
 
-        <div class="grid grid-cols-2 gap-6 mb-16">
-            <div class="rounded-3xl overflow-hidden shadow-xl aspect-video border-4 border-white bg-slate-200">
-                <img src="https://images.unsplash.com/photo-1590273466070-40c466b4432c?q=80&w=1000" class="w-full h-full object-cover" title="Random Seal">
+        <section class="mb-12">
+            <h2 class="text-2xl font-black mb-6 text-center">🦭 海豹即時觀測站</h2>
+            <div class="aspect-video rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white bg-black">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/videoseries?list=PLK8X9hH2pG7ajG0hYh8mI0h1S8L6e5N6S&autoplay=1&mute=1" title="Seal Cam" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <div class="rounded-3xl overflow-hidden shadow-xl aspect-video border-4 border-white bg-slate-200">
-                <img src="https://cataas.com/cat" class="w-full h-full object-cover" title="Random Cat">
-            </div>
-        </div>
+            <p class="text-center text-xs text-slate-400 mt-4 italic font-bold">即時觀測海豹的矛盾生活 0.0</p>
+        </section>
 
-        <div class="grid grid-cols-1 gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             
-            <section class="mb-10">
-                <h2 class="text-2xl font-black mb-6 flex items-center gap-2 border-l-4 border-slate-900 pl-4">
-                    <span>🇯🇵</span> 日本即時新聞
+            <div>
+                <h2 class="text-xl font-black mb-4 flex items-center gap-2 border-b-2 border-slate-900 pb-2">
+                    <span>🇯🇵</span> 日本焦點
                 </h2>
-                <div class="space-y-4">
-                    <a href="https://news.yahoo.co.jp/pickup/6578104?source=rss" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">高市政権支える 自民「一軍」争い</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
+                <div class="space-y-3">
+                    <a href="https://news.yahoo.co.jp/pickup/6578104?source=rss" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">高市政権支える 自民「一軍」争い</h3>
                     </a>
-                    <a href="https://news.yahoo.co.jp/pickup/6578101?source=rss" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">最大12連休 GW空の便出国ピーク</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
+                    <a href="https://news.yahoo.co.jp/pickup/6578101?source=rss" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">最大12連休 GW空の便出国ピーク</h3>
                     </a>
-                    <a href="https://news.yahoo.co.jp/pickup/6578098?source=rss" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">立てこもり 警察突入も男の姿なし</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
+                    <a href="https://news.yahoo.co.jp/pickup/6578098?source=rss" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">立てこもり 警察突入も男の姿なし</h3>
                     </a>
-                    <a href="https://news.yahoo.co.jp/pickup/6578099?source=rss" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">動物園職員 営業時間外に遺棄した</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
+                    <a href="https://news.yahoo.co.jp/pickup/6578099?source=rss" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">動物園職員 営業時間外に遺棄した</h3>
                     </a>
-                    <a href="https://news.yahoo.co.jp/pickup/6578096?source=rss" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">ブロッコリー「指定野菜」に 背景</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
-                    </a></div></section>
-            <section class="mb-10">
-                <h2 class="text-2xl font-black mb-6 flex items-center gap-2 border-l-4 border-slate-900 pl-4">
-                    <span>🇹🇼</span> 台灣即時新聞
+                    <a href="https://news.yahoo.co.jp/pickup/6578096?source=rss" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">ブロッコリー「指定野菜」に 背景</h3>
+                    </a></div></div>
+            <div>
+                <h2 class="text-xl font-black mb-4 flex items-center gap-2 border-b-2 border-slate-900 pb-2">
+                    <span>🇹🇼</span> 台灣焦點
                 </h2>
-                <div class="space-y-4">
-                    <a href="https://www.cna.com.tw/news/afe/202505055002.aspx" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">新台幣繼續衝 早盤再度飆漲逾1元衝上29元</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
+                <div class="space-y-3">
+                    <a href="https://www.cna.com.tw/news/afe/202505055002.aspx" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">新台幣繼續衝 早盤再度飆漲逾1元衝上29元</h3>
                     </a>
-                    <a href="https://www.cna.com.tw/news/ahel/202505055001.aspx" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">早安世界》本週2波鋒面接力晴雨交替 6、7日各地恐有大雨</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
+                    <a href="https://www.cna.com.tw/news/ahel/202505055001.aspx" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">早安世界》本週2波鋒面接力晴雨交替 6、7日各地恐有大雨</h3>
                     </a>
-                    <a href="https://www.cna.com.tw/news/afe/202505050023.aspx" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">新台幣開盤為30.91元 早盤勁揚逾8角</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
+                    <a href="https://www.cna.com.tw/news/afe/202505050023.aspx" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">新台幣開盤為30.91元 早盤勁揚逾8角</h3>
                     </a>
-                    <a href="https://www.cna.com.tw/news/aopl/202505050014.aspx" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">「包山包海」部長盧比歐 傳統共和黨人從MAGA世界崛起</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
+                    <a href="https://www.cna.com.tw/news/aopl/202505050014.aspx" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">「包山包海」部長盧比歐 傳統共和黨人從MAGA世界崛起</h3>
                     </a>
-                    <a href="https://www.cna.com.tw/news/aipl/202505050013.aspx" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">美眾院將表決涉台法案 解除交往限制、釐清聯大決議</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
-                    </a></div></section>
-            <section class="mb-10">
-                <h2 class="text-2xl font-black mb-6 flex items-center gap-2 border-l-4 border-slate-900 pl-4">
-                    <span>🇺🇸</span> 美國即時新聞
+                    <a href="https://www.cna.com.tw/news/aipl/202505050013.aspx" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">美眾院將表決涉台法案 解除交往限制、釐清聯大決議</h3>
+                    </a></div></div>
+            <div>
+                <h2 class="text-xl font-black mb-4 flex items-center gap-2 border-b-2 border-slate-900 pb-2">
+                    <span>🇺🇸</span> 美國焦點
                 </h2>
-                <div class="space-y-4">
-                    <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxOeGhfSmI5ckkzRy1qZkpqYVRISGR0RjJMYkFvbG9jUVBGa2Nfbl9MTDNqbWt0d3dTZU9vVmRaWXVQQ1UxYlhaTVM2eGd2bG5UNVphc3lnTXJOLTZLdF9jTXViODRWZkYyOTFoS3JtWHNjS1M3SEl5emo0MG9uZ25LcVNSWU5zdmxhT3doN0tJdU9BeHdscDg0MTRXSWJnZ28?oc=5" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">Lions pick up Jahmyr Gibbs' 5th-year option and decline option for Jack Campbell, AP source says - AP News</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
+                <div class="space-y-3">
+                    <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxOeGhfSmI5ckkzRy1qZkpqYVRISGR0RjJMYkFvbG9jUVBGa2Nfbl9MTDNqbWt0d3dTZU9vVmRaWXVQQ1UxYlhaTVM2eGd2bG5UNVphc3lnTXJOLTZLdF9jTXViODRWZkYyOTFoS3JtWHNjS1M3SEl5emo0MG9uZ25LcVNSWU5zdmxhT3doN0tJdU9BeHdscDg0MTRXSWJnZ28?oc=5" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">Lions pick up Jahmyr Gibbs' 5th-year option and decline option for Jack Campbell, AP source says - AP News</h3>
                     </a>
-                    <a href="https://news.google.com/rss/articles/CBMirAFBVV95cUxOZzF1c3A1Q05JMVo5UDZHNFJ5N1l0bDNyZmlpVmV0cmp5VUFtVEszMUg3YUVvNkhIN3hLVWJHZldONWpHeXA4WXEybnE5YjZwaGxfVjlRZ0Nqck92elUtYWZPSHZtTEJMbnR6SE1GaGFLSVdCLVFfVGJJMXZMb1BIbS1EQVNMbm1Xd1IzNFpmb3VNakZoUlpWZG5nWklCa3BSd3ZWVk9JU2R2d1Jf?oc=5" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">Aldi is removing 44 ingredients from its products by the end of 2027 - Alaska's News Source</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
+                    <a href="https://news.google.com/rss/articles/CBMirAFBVV95cUxOZzF1c3A1Q05JMVo5UDZHNFJ5N1l0bDNyZmlpVmV0cmp5VUFtVEszMUg3YUVvNkhIN3hLVWJHZldONWpHeXA4WXEybnE5YjZwaGxfVjlRZ0Nqck92elUtYWZPSHZtTEJMbnR6SE1GaGFLSVdCLVFfVGJJMXZMb1BIbS1EQVNMbm1Xd1IzNFpmb3VNakZoUlpWZG5nWklCa3BSd3ZWVk9JU2R2d1Jf?oc=5" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">Aldi is removing 44 ingredients from its products by the end of 2027 - Alaska's News Source</h3>
                     </a>
-                    <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxPVHFhcEM5cXRPaW5PV21BUVI0dDVwZkZGQnZidFhTd3ZMSGpBRkJtZjVmOExWVGFVN1lGbS01WlBJV1dxZExQbUk0X3IyaEdjOEM5aEE4SEpvY3BjRXY1STRCSzRXS0taWi1RMEVWSTdSYnprdC1TZk1yVUxKV2RzdmN3UHJEOVpBeWtDR1BjVFNwWDRMc21yWDg0WS0zRVozczZVd3d4SnVVNXBNN0lkTDJrNHNUQUR4T1J3MTBCUXN1TF9uOG83UQ?oc=5" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">Guardians prospect Travis Bazzana, 2024 top overall pick, will be called up Tuesday, AP source says - Spectrum News</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
+                    <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxPVHFhcEM5cXRPaW5PV21BUVI0dDVwZkZGQnZidFhTd3ZMSGpBRkJtZjVmOExWVGFVN1lGbS01WlBJV1dxZExQbUk0X3IyaEdjOEM5aEE4SEpvY3BjRXY1STRCSzRXS0taWi1RMEVWSTdSYnprdC1TZk1yVUxKV2RzdmN3UHJEOVpBeWtDR1BjVFNwWDRMc21yWDg0WS0zRVozczZVd3d4SnVVNXBNN0lkTDJrNHNUQUR4T1J3MTBCUXN1TF9uOG83UQ?oc=5" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">Guardians prospect Travis Bazzana, 2024 top overall pick, will be called up Tuesday, AP source says - Spectrum News</h3>
                     </a>
-                    <a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxOb0ttS3JwaGFzT0h6d3l6NjNyYUhMS2dnWVdiN3VJMjdKSkppaDdsNkprY2RYVlktd0dfbUxBTld2TWpvSGRHVTFJWGM3NHlPemhuVS1CX3FSelF5cjRwdzJJMHd5eWVTRU15SzNjRjkzaUVza25DSVdVYjlwT1FfOVJCZ1FOWnZSRFlFa09XMWFOVTBZR1ZtSG45TDNka01CczJCWlEyN25CRWdPcUlCWVVn?oc=5" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">Carjacking foiled when suspects let victim leave with keys - KBTX News 3</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
+                    <a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxOb0ttS3JwaGFzT0h6d3l6NjNyYUhMS2dnWVdiN3VJMjdKSkppaDdsNkprY2RYVlktd0dfbUxBTld2TWpvSGRHVTFJWGM3NHlPemhuVS1CX3FSelF5cjRwdzJJMHd5eWVTRU15SzNjRjkzaUVza25DSVdVYjlwT1FfOVJCZ1FOWnZSRFlFa09XMWFOVTBZR1ZtSG45TDNka01CczJCWlEyN25CRWdPcUlCWVVn?oc=5" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">Carjacking foiled when suspects let victim leave with keys - KBTX News 3</h3>
                     </a>
-                    <a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxPYl9vY2VfSVAtUzdUdGUteFlvQVVIMF9PNnBvRkdBd3NQZDZhem5DMHRYMWpxWE5WSEJhWnNxbmk3QVd3d0xncW5rVGFCTG5BNFl1aC16ZHdKb3lyanA1MVEwOHdaNERCTjhJNlZmNDBJTlhrUlR2QVdrWlhxSFU1c2JHYnJCTnhDQVVoTFBFYlFZUktVazNoeE5FTVJGcTFIY0luSmtuWk5yZGI4U2xlX2tR?oc=5" target="_blank" class="block bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-900 transition-all group">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-slate-800 group-hover:text-black leading-tight">Carjacking foiled when suspects let victim leave with keys - WILX</h3>
-                            <span class="text-slate-300 group-hover:text-slate-900">→</span>
-                        </div>
-                    </a></div></section>
+                    <a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxPYl9vY2VfSVAtUzdUdGUteFlvQVVIMF9PNnBvRkdBd3NQZDZhem5DMHRYMWpxWE5WSEJhWnNxbmk3QVd3d0xncW5rVGFCTG5BNFl1aC16ZHdKb3lyanA1MVEwOHdaNERCTjhJNlZmNDBJTlhrUlR2QVdrWlhxSFU1c2JHYnJCTnhDQVVoTFBFYlFZUktVazNoeE5FTVJGcTFIY0luSmtuWk5yZGI4U2xlX2tR?oc=5" target="_blank" class="block bg-white p-3 rounded-xl shadow-sm border border-slate-100 hover:border-slate-400 transition-all group">
+                        <h3 class="text-sm font-bold text-slate-800 line-clamp-2">Carjacking foiled when suspects let victim leave with keys - WILX</h3>
+                    </a></div></div>
         </div>
 
-        <section class="mt-24 border-t-2 border-slate-200 pt-16">
-            <div class="flex justify-between items-end mb-8">
-                <div>
-                    <h2 class="text-3xl font-black text-slate-900">Footprint Art</h2>
-                    <p class="text-slate-500 text-sm font-bold uppercase tracking-widest">Generative Expression 0.0</p>
-                </div>
-                <button onclick="clearCanvas()" class="bg-slate-900 text-white px-8 py-3 rounded-2xl text-xs font-black shadow-lg hover:bg-black transition active:scale-95 uppercase tracking-widest">
+        <section class="mb-20 text-center border-t border-slate-200 pt-16">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">今日份的療癒 🐈</h2>
+            <div class="max-w-md mx-auto rounded-[2.5rem] overflow-hidden shadow-lg border-4 border-white">
+                <img src="https://cataas.com/cat" class="w-full h-64 object-cover" alt="Daily Cat">
+            </div>
+            <p class="mt-4 text-slate-500 italic text-sm">「不管世界局勢如何變幻，總有一隻貓在默默陪著你。」</p>
+        </section>
+
+        <section class="mt-20 border-t border-slate-200 pt-10 text-center relative">
+            <h2 class="text-3xl font-black text-slate-900 mb-2 font-mono">Footprint Art 0.0</h2>
+            <div id="canvas-wrap" class="w-full h-[500px] bg-white rounded-[3rem] shadow-inner border border-slate-100 relative overflow-hidden mt-8">
+                <button onclick="clearCanvas()" class="absolute bottom-6 right-6 bg-slate-900 text-white px-6 py-2 rounded-full text-[10px] font-black shadow-lg hover:bg-black transition z-10 uppercase tracking-widest">
                     Clear Canvas
                 </button>
             </div>
-            <div id="canvas-wrap" class="w-full h-[500px] bg-white rounded-[3rem] shadow-inner border border-slate-200 relative overflow-hidden"></div>
         </section>
     </div>
 
-    <footer class="text-center py-20 text-slate-300 text-[10px] font-black tracking-[0.4em] uppercase">
-        2026-04-29 • Automated by SealNews
+    <footer class="text-center py-20 text-slate-300 text-[10px] font-black tracking-[0.3em] uppercase">
+        2026-04-29 • SealNews Hub
     </footer>
 
     <script>
-    // 即時時鐘
-    function updateClock() {
-        const now = new Date();
-        document.getElementById('realtime-clock').innerText = now.toLocaleTimeString('zh-TW', { hour12: false });
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // 腳印藝術
     let dog;
     let currentHue = 0;
 
@@ -190,7 +135,8 @@
     function clearCanvas() { background(0, 0, 100); }
 
     function draw() {
-        fill(0, 0, 100, 0.007); 
+        // 腳印留存超久 (0.005)
+        fill(0, 0, 100, 0.005); 
         rect(0, 0, width, height);
 
         let t = createVector(mouseX, mouseY);
@@ -213,7 +159,7 @@
         }
         dog.noiseOffset += 0.04;
 
-        if (frameCount % floor(random(8, 14)) == 0) {
+        if (frameCount % 10 == 0) {
             currentHue = (currentHue + 7) % 360;
             dog.stepCounter++;
             let isFirst = (dog.stepCounter % 2 == 0);
@@ -230,7 +176,7 @@
 
     function drawPaw(x, y, r, h) {
         push(); translate(x, y); rotate(r); noStroke();
-        fill(h, 60, 85, 0.45); scale(random(0.8, 1.1));
+        fill(h, 60, 85, 0.5); scale(random(0.8, 1.1));
         ellipse(0, 0, 12, 10); ellipse(-6, -7, 5, 5); ellipse(-2, -10, 5, 5); ellipse(2, -10, 5, 5); ellipse(6, -7, 5, 5);
         pop();
     }
