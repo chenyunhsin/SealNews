@@ -48,13 +48,15 @@
             pos: createVector(width/2, height/2), 
             ang: 0, 
             rot: 0,
-            stepCounter: 0 
+            stepCounter: 0,
+            noiseOffset: 0
         };
         background(0, 0, 100); 
     }
 
     function draw() {
-        fill(0, 0, 100, 0.04); 
+        // [升級1] 極低刷新率：讓殘留留存極久，形成層疊藝術感
+        fill(0, 0, 100, 0.008); 
         rect(0, 0, width, height);
 
         let t = createVector(mouseX, mouseY);
@@ -64,39 +66,42 @@
 
         let d = dist(dog.pos.x, dog.pos.y, t.x, t.y);
         
-        // 運動運算
+        // 運動邏輯
         if (d < 150) {
-            dog.ang += 0.04; 
-            dog.pos.x = t.x + cos(dog.ang) * 95;
-            dog.pos.y = t.y + sin(dog.ang) * 95;
-            
-            // --- [關鍵修正] ---
-            // 在繞圈時，精確計算切線方向
-            // atan2(dx, dy) 算出垂直於半徑的角度，這才是落腳的真實方向
+            dog.ang += 0.045; 
+            // 加入隨機擾動 (Perlin Noise)，讓圓形軌跡不會太死板
+            let jitter = map(noise(dog.noiseOffset), 0, 1, -15, 15);
+            dog.pos.x = t.x + cos(dog.ang) * (95 + jitter);
+            dog.pos.y = t.y + sin(dog.ang) * (95 + jitter);
             dog.rot = -atan2(t.x - dog.pos.x, t.y - dog.pos.y);
         } else {
             let v = p5.Vector.sub(t, dog.pos);
-            // 直線追逐時維持 heading() 邏輯
             dog.rot = v.heading() + PI/2;
-            v.setMag(1.4);
+            v.setMag(1.6);
             dog.pos.add(v);
         }
+        dog.noiseOffset += 0.05;
 
-        // 四足步態運算：每 10 幀判斷一次腳步
-        if (frameCount % 10 == 0) {
-            currentHue = (currentHue + 15) % 360;
+        // [升級2] 不規則步伐頻率：模擬生物雀躍感
+        // 利用 frameCount 配合一點點隨機，讓印出頻率不再是死板的 10, 20...
+        if (frameCount % floor(random(8, 15)) == 0) {
+            currentHue = (currentHue + 10) % 360;
             dog.stepCounter++;
 
             let isFirstPhase = (dog.stepCounter % 2 == 0);
             
-            // 模擬前腳與後腳的空間相位
-            // 前腳向前一點 (y-10)，後腳向後一點 (y+20)
+            // 加入隨機腳步偏移 (Organic Offset)
+            let randLX = random(-3, 3);
+            let randLY = random(-5, 5);
+
             if (isFirstPhase) {
-                drawPaw(dog.pos.x - 12, dog.pos.y - 10, dog.rot, currentHue); // 左前
-                drawPaw(dog.pos.x + 10, dog.pos.y + 20, dog.rot, currentHue); // 右後
+                // 左前 + 右後，加上隨機震盪
+                drawPaw(dog.pos.x - 12 + randLX, dog.pos.y - 12 + randLY, dog.rot, currentHue); 
+                drawPaw(dog.pos.x + 10 + randLX, dog.pos.y + 25 + randLY, dog.rot, currentHue); 
             } else {
-                drawPaw(dog.pos.x + 12, dog.pos.y - 10, dog.rot, currentHue); // 右前
-                drawPaw(dog.pos.x - 10, dog.pos.y + 20, dog.rot, currentHue); // 左後
+                // 右前 + 左後
+                drawPaw(dog.pos.x + 12 + randLX, dog.pos.y - 12 + randLY, dog.rot, currentHue); 
+                drawPaw(dog.pos.x - 10 + randLX, dog.pos.y + 25 + randLY, dog.rot, currentHue); 
             }
         }
     }
@@ -104,16 +109,20 @@
     function drawPaw(x, y, r, h) {
         push();
         translate(x, y);
-        // 核心修正：每個腳印獨立旋轉，完美切齊路徑
         rotate(r);
         noStroke();
-        fill(h, 60, 80, 0.5);
+        // [升級3] 彩色層次：增加透明度疊加效果
+        fill(h, 65, 85, 0.4);
         
-        ellipse(0, 0, 10, 8); 
-        ellipse(-5, -6, 4, 4);
-        ellipse(-1.5, -8, 4, 4);
-        ellipse(1.5, -8, 4, 4);
-        ellipse(5, -6, 4, 4);
+        // 腳印大小隨機微調
+        let s = random(0.8, 1.1);
+        scale(s);
+
+        ellipse(0, 0, 11, 9); 
+        ellipse(-5, -6, 4.5, 4.5);
+        ellipse(-1.5, -8.5, 4.5, 4.5);
+        ellipse(1.5, -8.5, 4.5, 4.5);
+        ellipse(5, -6, 4.5, 4.5);
         pop();
     }
 
