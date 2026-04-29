@@ -75,14 +75,12 @@ def build_site():
         let cnv = createCanvas(c.offsetWidth, 400);
         cnv.parent('canvas-wrap');
         dog = { pos: createVector(width/2, height/2), ang: 0, rot: 0 };
-        background(255); // 只在開始時畫一次白背景
+        background(255);
     }
 
     function draw() {
-        // 關鍵：不再每一幀都重畫背景，讓腳印留著
-        // 只有在非常緩慢的情況下輕微覆蓋，模擬淡化感
-        fill(255, 3); 
-        rect(0, 0, width, height);
+        // 稍微加強刷新速度，讓舊腳印淡出，軌跡才會明顯
+        background(255, 20); 
 
         let t = createVector(mouseX, mouseY);
         if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {
@@ -90,21 +88,22 @@ def build_site():
         }
 
         let d = dist(dog.pos.x, dog.pos.y, t.x, t.y);
-        if (d < 120) {
+        if (d < 130) {
             dog.ang += 0.04; 
-            dog.pos.x = t.x + cos(dog.ang) * 80;
-            dog.pos.y = t.y + sin(dog.ang) * 80;
+            dog.pos.x = t.x + cos(dog.ang) * 90;
+            dog.pos.y = t.y + sin(dog.ang) * 90;
             dog.rot = dog.ang + PI/2;
         } else {
             let v = p5.Vector.sub(t, dog.pos);
             dog.rot = v.heading() + PI/2;
-            v.setMag(1.0); // 慢速移動
+            v.setMag(1.2);
             dog.pos.add(v);
         }
 
-        // 繪製腳印
-        if (frameCount % 45 == 0) {
-            drawPaw(dog.pos.x, dog.pos.y, dog.rot);
+        // 繪製腳印：加入左右腳偏移邏輯
+        if (frameCount % 30 == 0) {
+            let sideOffset = (frameCount % 60 == 0) ? 8 : -8; // 模擬左右腳
+            drawPaw(dog.pos.x + sideOffset, dog.pos.y, dog.rot);
         }
     }
 
@@ -113,14 +112,14 @@ def build_site():
         translate(x, y);
         rotate(r);
         noStroke();
-        fill(100, 80, 60, 150); // 咖啡色腳印
-        // 大肉墊
-        ellipse(0, 0, 12, 10);
-        // 四顆腳趾
-        ellipse(-6, -6, 5, 5);
-        ellipse(-2, -8, 5, 5);
-        ellipse(2, -8, 5, 5);
-        ellipse(6, -6, 5, 5);
+        fill(100, 80, 60, 180); // 稍微加深顏色
+        // 大肉墊 (倒心形)
+        ellipse(0, 0, 10, 8);
+        // 四顆小趾頭
+        ellipse(-5, -6, 4, 4);
+        ellipse(-1.5, -8, 4, 4);
+        ellipse(1.5, -8, 4, 4);
+        ellipse(5, -6, 4, 4);
         pop();
     }
 
