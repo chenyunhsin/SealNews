@@ -6,58 +6,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <title>SealNews | 柴犬藝術</title>
+    <title>SealNews | 貓貓與柴犬</title>
 </head>
 <body class="bg-slate-50 text-slate-900">
     <header class="bg-white border-b py-6 text-center shadow-sm sticky top-0 z-50">
-        <h1 class="text-3xl font-black">SEAL NEWS</h1>
-        <p class="text-gray-500 text-sm">2026-04-29</p>
+        <h1 class="text-3xl font-black tracking-tighter">SEAL NEWS</h1>
+        <p class="text-gray-500 text-xs">2026-04-29 · 今日世界：充滿希望</p>
     </header>
+
     <main class="max-w-6xl mx-auto px-6 py-10">
-        <section class="rounded-3xl overflow-hidden shadow-xl mb-10 bg-black aspect-video relative">
-            <img src="https://apod.nasa.gov/apod/image/2604/moon_venus_pleiades_zoom.jpg" class="w-full h-full object-cover opacity-80">
+        <section class="rounded-3xl overflow-hidden shadow-xl mb-10 bg-black aspect-video relative group cursor-pointer">
+            <img src="https://apod.nasa.gov/apod/image/2604/moon_venus_pleiades_zoom.jpg" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition duration-700">
             <div class="absolute bottom-0 p-6 bg-gradient-to-t from-black text-white w-full">
                 <h2 class="text-xl font-bold">The Moon, Venus, and the Pleiades</h2>
                 <p class="text-sm opacity-80">No, Earth did not recently acquire six more moons!  Today’s APOD is a combination of images following the Moon, Venus, and the Pleiades across a south...</p>
             </div>
         </section>
+
         <h2 class="text-2xl font-bold mt-10 mb-4">🇹🇼 台灣焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <a href="https://www.cna.com.tw/news/afe/202505055002.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm">新台幣繼續衝 早盤再度飆漲逾1元衝上29元</h3>
+                    <a href="https://www.cna.com.tw/news/afe/202505055002.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition group">
+                        <h3 class="font-bold text-sm group-hover:text-blue-600">新台幣繼續衝 早盤再度飆漲逾1元衝上29元</h3>
                     </a>
-                    <a href="https://www.cna.com.tw/news/ahel/202505055001.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm">早安世界》本週2波鋒面接力晴雨交替 6、7日各地恐有大雨</h3>
+                    <a href="https://www.cna.com.tw/news/ahel/202505055001.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition group">
+                        <h3 class="font-bold text-sm group-hover:text-blue-600">早安世界》本週2波鋒面接力晴雨交替 6、7日各地恐有大雨</h3>
                     </a>
-                    <a href="https://www.cna.com.tw/news/afe/202505050023.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm">新台幣開盤為30.91元 早盤勁揚逾8角</h3>
+                    <a href="https://www.cna.com.tw/news/afe/202505050023.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition group">
+                        <h3 class="font-bold text-sm group-hover:text-blue-600">新台幣開盤為30.91元 早盤勁揚逾8角</h3>
                     </a></div><h2 class="text-2xl font-bold mt-10 mb-4">🇯🇵 日本焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <a href="https://news.yahoo.co.jp/pickup/6578102?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm">岩手火災 避難指示の大半を解除</h3>
+                    <a href="https://news.yahoo.co.jp/pickup/6578102?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition group">
+                        <h3 class="font-bold text-sm group-hover:text-blue-600">岩手火災 避難指示の大半を解除</h3>
                     </a>
-                    <a href="https://news.yahoo.co.jp/pickup/6578097?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm">連合会長 裁量労働制の拡充は不要</h3>
+                    <a href="https://news.yahoo.co.jp/pickup/6578097?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition group">
+                        <h3 class="font-bold text-sm group-hover:text-blue-600">連合会長 裁量労働制の拡充は不要</h3>
                     </a>
-                    <a href="https://news.yahoo.co.jp/pickup/6578093?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm">子の転落事故に注意喚起 消費者庁</h3>
+                    <a href="https://news.yahoo.co.jp/pickup/6578093?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition group">
+                        <h3 class="font-bold text-sm group-hover:text-blue-600">子の転落事故に注意喚起 消費者庁</h3>
                     </a></div><h2 class="text-2xl font-bold mt-10 mb-4">🇺🇸 美國焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxOeGhfSmI5ckkzRy1qZkpqYVRISGR0RjJMYkFvbG9jUVBGa2Nfbl9MTDNqbWt0d3dTZU9vVmRaWXVQQ1UxYlhaTVM2eGd2bG5UNVphc3lnTXJOLTZLdF9jTXViODRWZkYyOTFoS3JtWHNjS1M3SEl5emo0MG9uZ25LcVNSWU5zdmxhT3doN0tJdU9BeHdscDg0MTRXSWJnZ28?oc=5" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm">Lions pick up Jahmyr Gibbs' 5th-year option and decline option for Jack Campbell, AP source says - AP News</h3>
+                    <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxOeGhfSmI5ckkzRy1qZkpqYVRISGR0RjJMYkFvbG9jUVBGa2Nfbl9MTDNqbWt0d3dTZU9vVmRaWXVQQ1UxYlhaTVM2eGd2bG5UNVphc3lnTXJOLTZLdF9jTXViODRWZkYyOTFoS3JtWHNjS1M3SEl5emo0MG9uZ25LcVNSWU5zdmxhT3doN0tJdU9BeHdscDg0MTRXSWJnZ28?oc=5" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition group">
+                        <h3 class="font-bold text-sm group-hover:text-blue-600">Lions pick up Jahmyr Gibbs' 5th-year option and decline option for Jack Campbell, AP source says - AP News</h3>
                     </a>
-                    <a href="https://news.google.com/rss/articles/CBMirAFBVV95cUxOZzF1c3A1Q05JMVo5UDZHNFJ5N1l0bDNyZmlpVmV0cmp5VUFtVEszMUg3YUVvNkhIN3hLVWJHZldONWpHeXA4WXEybnE5YjZwaGxfVjlRZ0Nqck92elUtYWZPSHZtTEJMbnR6SE1GaGFLSVdCLVFfVGJJMXZMb1BIbS1EQVNMbm1Xd1IzNFpmb3VNakZoUlpWZG5nWklCa3BSd3ZWVk9JU2R2d1Jf?oc=5" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm">Aldi is removing 44 ingredients from its products by the end of 2027 - Alaska's News Source</h3>
+                    <a href="https://news.google.com/rss/articles/CBMirAFBVV95cUxOZzF1c3A1Q05JMVo5UDZHNFJ5N1l0bDNyZmlpVmV0cmp5VUFtVEszMUg3YUVvNkhIN3hLVWJHZldONWpHeXA4WXEybnE5YjZwaGxfVjlRZ0Nqck92elUtYWZPSHZtTEJMbnR6SE1GaGFLSVdCLVFfVGJJMXZMb1BIbS1EQVNMbm1Xd1IzNFpmb3VNakZoUlpWZG5nWklCa3BSd3ZWVk9JU2R2d1Jf?oc=5" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition group">
+                        <h3 class="font-bold text-sm group-hover:text-blue-600">Aldi is removing 44 ingredients from its products by the end of 2027 - Alaska's News Source</h3>
                     </a>
-                    <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxPVHFhcEM5cXRPaW5PV21BUVI0dDVwZkZGQnZidFhTd3ZMSGpBRkJtZjVmOExWVGFVN1lGbS01WlBJV1dxZExQbUk0X3IyaEdjOEM5aEE4SEpvY3BjRXY1STRCSzRXS0taWi1RMEVWSTdSYnprdC1TZk1yVUxKV2RzdmN3UHJEOVpBeWtDR1BjVFNwWDRMc21yWDg0WS0zRVozczZVd3d4SnVVNXBNN0lkTDJrNHNUQUR4T1J3MTBCUXN1TF9uOG83UQ?oc=5" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm">Guardians prospect Travis Bazzana, 2024 top overall pick, will be called up Tuesday, AP source says - Spectrum News</h3>
+                    <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxPVHFhcEM5cXRPaW5PV21BUVI0dDVwZkZGQnZidFhTd3ZMSGpBRkJtZjVmOExWVGFVN1lGbS01WlBJV1dxZExQbUk0X3IyaEdjOEM5aEE4SEpvY3BjRXY1STRCSzRXS0taWi1RMEVWSTdSYnprdC1TZk1yVUxKV2RzdmN3UHJEOVpBeWtDR1BjVFNwWDRMc21yWDg0WS0zRVozczZVd3d4SnVVNXBNN0lkTDJrNHNUQUR4T1J3MTBCUXN1TF9uOG83UQ?oc=5" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition group">
+                        <h3 class="font-bold text-sm group-hover:text-blue-600">Guardians prospect Travis Bazzana, 2024 top overall pick, will be called up Tuesday, AP source says - Spectrum News</h3>
                     </a></div>
+
+        <section class="mt-20 text-center border-t pt-12">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">今日份的療癒 🐈</h2>
+            <div class="max-w-md mx-auto rounded-3xl overflow-hidden shadow-lg border-4 border-white">
+                <img src="https://cataas.com/cat" class="w-full h-64 object-cover" alt="Daily Cat">
+            </div>
+            <p class="mt-4 text-slate-500 italic text-sm">「不管世界局勢如何變幻，總有一隻貓在默默陪著你。」</p>
+        </section>
+
         <section class="mt-20 border-t pt-10 text-center">
-            <h2 class="text-2xl font-bold mb-2">柴犬的矛盾藝術 0.0</h2>
-            <p class="text-sm text-slate-500 mb-6">點擊柴犬可以套上項圈喔！</p>
-            <div id="dog-canvas-container" class="w-full h-[350px] bg-white rounded-3xl shadow-inner relative overflow-hidden"></div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">柴犬的矛盾藝術 0.0</h2>
+            <p class="text-sm text-slate-500 mb-6">點擊柴犬試著套上項圈，給牠一個 ❤️</p>
+            <div id="dog-canvas-container" class="w-full h-[400px] bg-white rounded-3xl shadow-inner relative overflow-hidden"></div>
         </section>
     </main>
+
     <footer class="text-center py-10 text-gray-400 text-xs border-t mt-10">
         © 2026-04-29 SealNews Automation
     </footer>
+
     <script>
     
 let dogImg, pawImg;
@@ -71,50 +84,61 @@ function preload() {
 
 function setup() {
     let container = document.getElementById('dog-canvas-container');
-    let canvas = createCanvas(container.offsetWidth, 350);
+    let canvas = createCanvas(container.offsetWidth, 400);
     canvas.parent('dog-canvas-container');
     container.style.cursor = "url('https://img.icons8.com/color/32/dog-collar.png') 16 16, auto";
     dog = { pos: createVector(width/2, height/2), angle: 0, rotation: 0 };
 }
 
 function draw() {
-    background(255, isCaught ? 15 : 45);
+    background(255, isCaught ? 10 : 35); 
     let target = createVector(mouseX, mouseY);
+    
+    // 如果滑鼠不在畫布內，狗狗會自動漫遊
     if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {
-        target = createVector(width/2 + sin(frameCount*0.01)*200, height/2 + cos(frameCount*0.015)*100);
+        target = createVector(
+            width/2 + sin(frameCount * 0.01) * (width/2.5),
+            height/2 + cos(frameCount * 0.02) * 100
+        );
     }
+
     if (!isCaught) {
         let d = dist(dog.pos.x, dog.pos.y, target.x, target.y);
-        if (d < 120) {
-            dog.angle += 0.08;
-            dog.pos.x = target.x + cos(dog.angle) * 85;
-            dog.pos.y = target.y + sin(dog.angle) * 85;
+        if (d < 130) {
+            // 興奮模式
+            dog.angle += 0.07;
+            dog.pos.x = target.x + cos(dog.angle) * 90;
+            dog.pos.y = target.y + sin(dog.angle) * 90;
             dog.rotation = dog.angle + PI/2;
         } else {
+            // 靠近模式
             let v = p5.Vector.sub(target, dog.pos);
             dog.rotation = v.heading() + PI/2;
-            v.setMag(2.2);
+            v.setMag(1.8);
             dog.pos.add(v);
         }
-        if (frameCount % 25 == 0) {
+        // 畫腳印
+        if (frameCount % 30 == 0) {
             push(); translate(dog.pos.x, dog.pos.y); rotate(dog.rotation);
-            tint(255, 60); image(pawImg, 10, 10, 15, 15); pop();
+            tint(255, 50); image(pawImg, 10, 10, 15, 15); pop();
         }
     }
+
+    // 顯示狗狗
     push();
     translate(dog.pos.x, dog.pos.y);
-    rotate(isCaught ? sin(frameCount*0.1)*0.1 : dog.rotation);
+    rotate(isCaught ? sin(frameCount * 0.1) * 0.1 : dog.rotation);
     imageMode(CENTER);
     image(dogImg, 0, 0, 80, 80);
     if (isCaught) {
-        textSize(24); textAlign(CENTER); text('❤️', 0, -45);
+        textSize(32); textAlign(CENTER); text('❤️', 0, -50);
     }
     pop();
 }
 
 function mousePressed() {
     let d = dist(mouseX, mouseY, dog.pos.x, dog.pos.y);
-    if (d < 50) {
+    if (d < 60) {
         isCaught = true;
         setTimeout(() => { isCaught = false; }, 3000);
     }
@@ -122,7 +146,7 @@ function mousePressed() {
 
 function windowResized() {
     let container = document.getElementById('dog-canvas-container');
-    if(container) resizeCanvas(container.offsetWidth, 350);
+    if(container) resizeCanvas(container.offsetWidth, 400);
 }
 
     </script>
