@@ -4,27 +4,25 @@
     <head>
         <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.tailwindcss.com"></script>
-        <title>SealNews | 世界局勢</title>
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
-            body { font-family: 'Noto Sans TC', sans-serif; transition: background-color 1s ease; }
-            .nasa-gradient { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%); }
-        </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+        <title>SealNews | 世界局勢與狗狗藝術</title>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+        <style>body { font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }</style>
     </head>
-    <body class="bg-amber-50 text-slate-900 pb-20">
+    <body class="bg-slate-50 text-slate-900 transition-colors duration-1000">
         <header class="bg-white/80 backdrop-blur-md border-b px-6 py-8 text-center shadow-sm sticky top-0 z-50">
-            <h1 class="text-4xl font-black text-slate-800 tracking-tighter italic">SEAL NEWS</h1>
-            <p class="text-slate-500 mt-2 font-medium tracking-widest">2026-04-29 · 今日世界氣味：充滿希望</p>
+            <h1 class="text-4xl font-black text-slate-800 tracking-tight">SEAL NEWS</h1>
+            <p class="text-slate-500 mt-2 font-medium">2026-04-29 · 今日世界氣氛：平靜日常</p>
         </header>
 
         <main class="max-w-6xl mx-auto px-6 py-10">
-            <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" class="block mb-16">
-                <section class="relative rounded-[2rem] overflow-hidden shadow-2xl aspect-[16/9] md:aspect-[21/9] group bg-black">
-                    <img src="https://apod.nasa.gov/apod/image/2604/CG30Globules_Salamme_960.jpg" loading="lazy" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100">
-                    <div class="absolute inset-0 nasa-gradient p-8 flex flex-col justify-end text-white">
-                        <span class="bg-blue-600 text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full w-max mb-4">NASA Daily Exploration</span>
-                        <h2 class="text-2xl md:text-5xl font-black mb-3 group-hover:text-blue-300 transition">CG 30：彗星小球</h2>
-                        <p class="text-gray-300 text-sm md:text-base line-clamp-2 max-w-3xl font-light">它們就像山峰，但它們正在形成星星。明亮的邊緣、流動的形狀聚集在這片豐富的星域的中心附近，朝向南航海星座船尾座和船帆座的邊界。由星際氣體和塵埃組成的光年大小的彗星球團距離約 1300 光年。來自附近熾熱恆星的高能量紫外線塑造了這些小球，並電離了它們明亮的邊緣。這些球體也從船帆座超新星遺跡流出，這可能影...</p>
+            <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" class="block">
+                <section class="relative rounded-3xl overflow-hidden mb-16 shadow-2xl aspect-[16/9] md:aspect-[21/9] group cursor-pointer">
+                    <img src="https://apod.nasa.gov/apod/image/2604/moon_venus_pleiades_zoom.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="NASA APOD">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 text-white">
+                        <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full w-max mb-3">NASA Daily Exploration</span>
+                        <h2 class="text-2xl md:text-4xl font-bold mb-2 group-hover:underline">月亮、金星和昴宿星團</h2>
+                        <p class="text-gray-200 text-sm md:text-base line-clamp-2 max-w-2xl">不，地球最近並沒有再獲得六顆衛星！今天的 APOD 是 4 月 19 日黃昏到傍晚時，追蹤月球、金星和昴宿星團穿過西西里島南部天空的圖像組合。從 2023 年到 2029 年，由於昴宿星團位於黃道面，昴宿星團和月球每月「訪問」一次。2026 年 4 月，他們與金星形成了天體排列。昴宿星團（梅西耶 4...</p>
                     </div>
                 </section>
             </a>
@@ -32,53 +30,111 @@
             <section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇹🇼 台灣焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <a href="https://www.cna.com.tw/news/afe/202505055002.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
                     <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">新台幣繼續衝 早盤再度飆漲逾1元衝上29元</h3>
-                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
                 </a>
                 <a href="https://www.cna.com.tw/news/ahel/202505055001.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
                     <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">早安世界》本週2波鋒面接力晴雨交替 6、7日各地恐有大雨</h3>
-                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
                 </a>
                 <a href="https://www.cna.com.tw/news/afe/202505050023.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
                     <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">新台幣開盤為30.91元 早盤勁揚逾8角</h3>
-                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
                 </a></div></section><section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇯🇵 日本焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <a href="https://news.yahoo.co.jp/pickup/6578081?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">不尋常的是，坦克縱隊沒有參加俄羅斯閱兵式</h3>
-                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                <a href="https://news.yahoo.co.jp/pickup/6578087?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">岩手火災：大部分疏散命令將取消</h3>
+                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
+                </a>
+                <a href="https://news.yahoo.co.jp/pickup/6578085?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">美國總統尋求單方面宣布勝利？</h3>
+                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
                 </a>
                 <a href="https://news.yahoo.co.jp/pickup/6578069?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
                     <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">調查顯示超過40%的蟄居族年齡在40歲以上</h3>
-                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
-                </a>
-                <a href="https://news.yahoo.co.jp/pickup/6578078?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">持刀造成7人受傷</h3>
-                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
                 </a></div></section><section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇺🇸 美國焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxOeGhfSmI5ckkzRy1qZkpqYVRISGR0RjJMYkFvbG9jUVBGa2Nfbl9MTDNqbWt0d3dTZU9vVmRaWXVQQ1UxYlhaTVM2eGd2bG5UNVphc3lnTXJOLTZLdF9jTXViODRWZkYyOTFoS3JtWHNjS1M3SEl5emo0MG9uZ25LcVNSWU5zdmxhT3doN0tJdU9BeHdscDg0MTRXSWJnZ28?oc=5" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
                     <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">美聯社消息人士稱，雄獅隊選擇了賈米爾·吉布斯的第5年選擇權，並拒絕傑克·坎貝爾的選擇權 - 美聯社新聞</h3>
-                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
                 </a>
                 <a href="https://news.google.com/rss/articles/CBMirAFBVV95cUxOZzF1c3A1Q05JMVo5UDZHNFJ5N1l0bDNyZmlpVmV0cmp5VUFtVEszMUg3YUVvNkhIN3hLVWJHZldONWpHeXA4WXEybnE5YjZwaGxfVjlRZ0Nqck92elUtYWZPSHZtTEJMbnR6SE1GaGFLSVdCLVFfVGJJMXZMb1BIbS1EQVNMbm1Xd1IzNFpmb3VNakZoUlpWZG5nWklCa3BSd3ZWVk9JU2R2d1Jf?oc=5" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
                     <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">阿爾迪計劃在 2027 年底之前從其產品中去除 44 種成分 - 阿拉斯加新聞來源</h3>
-                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
                 </a>
                 <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxPVHFhcEM5cXRPaW5PV21BUVI0dDVwZkZGQnZidFhTd3ZMSGpBRkJtZjVmOExWVGFVN1lGbS01WlBJV1dxZExQbUk0X3IyaEdjOEM5aEE4SEpvY3BjRXY1STRCSzRXS0taWi1RMEVWSTdSYnprdC1TZk1yVUxKV2RzdmN3UHJEOVpBeWtDR1BjVFNwWDRMc21yWDg0WS0zRVozczZVd3d4SnVVNXBNN0lkTDJrNHNUQUR4T1J3MTBCUXN1TF9uOG83UQ?oc=5" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
                     <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">美聯社消息人士稱，2024 年狀元秀特拉維斯·巴扎納 (Travis Bazzana) 將於週二被徵召入伍 - Spectrum News</h3>
-                    <span class="text-blue-500 text-sm font-medium italic">閱讀更多 →</span>
+                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
                 </a></div></section>
 
-            <section class="mt-24 text-center border-t border-slate-200 pt-16">
-                <h2 class="text-3xl font-black mb-8 text-slate-800 tracking-tighter">今日份的療癒 🐈</h2>
-                <div class="max-w-lg mx-auto rounded-[2rem] overflow-hidden shadow-2xl border-[12px] border-white bg-white">
-                    <img src="https://cdn2.thecatapi.com/images/4ie.gif" loading="lazy" class="w-full h-auto min-h-[300px] object-cover" alt="Daily Cat">
+            <section class="mt-20 text-center border-t pt-12">
+                <h2 class="text-2xl font-bold mb-6 text-slate-800">今日份的療癒 🐈</h2>
+                <div class="max-w-md mx-auto rounded-3xl overflow-hidden shadow-lg border-4 border-white">
+                    <img src="https://cataas.com/cat" class="w-full h-64 object-cover" alt="Daily Cat">
                 </div>
-                <p class="mt-8 text-slate-400 italic font-medium tracking-wide">「不管世界局勢如何變幻，總有一隻貓在默默陪著你。」</p>
+                <p class="mt-4 text-slate-500 italic text-sm">「不管世界局勢如何變幻，總有一隻貓在默默陪著你。」</p>
+            </section>
+
+            <section class="mt-20 border-t pt-10 text-center">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">狗狗的矛盾藝術 0.0</h2>
+                <p class="text-sm text-slate-500 mb-6">當你拿著項圈（滑鼠）靠近，牠會興奮地繞著你轉圈圈</p>
+                <div id="dog-canvas-container" class="w-full h-[300px] bg-white/50 rounded-3xl shadow-inner cursor-crosshair"></div>
             </section>
         </main>
 
-        <footer class="text-center py-12 text-slate-300 text-xs tracking-widest uppercase font-bold">
+        <footer class="text-center py-12 text-slate-400 text-sm font-light">
             &copy; 2026-04-29 SealNews Automation
         </footer>
+
+        <script>
+        let dog;
+        function setup() {
+            let container = document.getElementById('dog-canvas-container');
+            let canvas = createCanvas(container.offsetWidth, 300);
+            canvas.parent('dog-canvas-container');
+            dog = {
+                pos: createVector(width/2, height/2),
+                angle: 0,
+                display: function() {
+                    fill(60, 60, 60, 180);
+                    noStroke();
+                    // 畫出小爪印的感覺
+                    ellipse(this.pos.x, this.pos.y, 8, 8);
+                }
+            };
+            background(255, 0); // 透明背景讓它吃 CSS 顏色
+        }
+
+        function draw() {
+            background(255, 10); 
+            let target = createVector(mouseX, mouseY);
+            
+            // 如果滑鼠不在範圍內，讓狗狗在中間畫 8 字型漫遊
+            if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {
+                target = createVector(
+                    width/2 + sin(frameCount * 0.02) * (width/3),
+                    height/2 + sin(frameCount * 0.04) * 50
+                );
+            }
+
+            let d = p5.Vector.dist(dog.pos, target);
+            if (d < 100) {
+                // 興奮模式：瘋狂繞圈 (矛盾心理)
+                dog.angle += 0.25;
+                dog.pos.x = target.x + cos(dog.angle) * 70;
+                dog.pos.y = target.y + sin(dog.angle) * 70;
+            } else {
+                // 追逐模式
+                let vel = p5.Vector.sub(target, dog.pos);
+                vel.setMag(4);
+                dog.pos.add(vel);
+            }
+            dog.display();
+        }
+
+        function windowResized() {
+            let container = document.getElementById('dog-canvas-container');
+            resizeCanvas(container.offsetWidth, 300);
+        }
+        </script>
     </body>
     </html>
     
