@@ -2,37 +2,54 @@ import feedparser
 import datetime
 import requests
 import os
+import random
 
 def build_site():
     today_str = datetime.datetime.now().strftime("%Y-%m-%d")
     
-    # --- 1. 抓取 NASA (穩定版) ---
-    nasa_data = {"url": "https://images.nasa.gov/images/as11-40-5874_orig.jpg", "title": "探索宇宙", "desc": "正在觀測中..."}
+    # --- 1. NASA 數據 ---
+    nasa_data = {"url": "https://images.nasa.gov/images/as11-40-5874_orig.jpg", "title": "探索宇宙"}
     try:
         resp = requests.get("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=True", timeout=5).json()
         nasa_data["url"] = resp.get("url") if resp.get("media_type") != "video" else resp.get("thumbnail_url")
         nasa_data["title"] = resp.get("title", "NASA APOD")
-        nasa_data["desc"] = resp.get("explanation", "")[:100] + "..."
     except: pass
 
-    # --- 2. 抓取新聞 (包含台灣、日本、美國) ---
+    # --- 2. 海豹與貓咪圖片 (療癒 API) ---
+    # 海豹圖片使用專屬 API，若失敗則用備用圖
+    seal_url = "https://images.unsplash.com/photo-1590273466070-40c466b4432c?auto=format&fit=crop&w=800&q=80"
+    try:
+        seal_resp = requests.get("https://randomseal.com/api/v1/random", timeout=3).json()
+        seal_url = seal_resp['image']
+    except: pass
+    cat_url = "https://cataas.com/cat"
+
+    # --- 3. 遊戲推薦與 FF14 連結 ---
+    games = [
+        {"n": "FF14: 曙光之女", "p": "PC / PS5", "d": "最新 7.0 版本，體驗壯闊的黃金鄉冒險。"},
+        {"n": "集合啦！動物森友會", "p": "Switch", "d": "永遠的療癒王者，適合在忙碌一天後放空。"},
+        {"n": "星露谷物語", "p": "PC / Switch", "d": "1.6 版本更新了大量內容，回歸農場生活。"},
+        {"n": "密特羅德 生存恐懼", "p": "Switch", "d": "精準的動作手感，適合想要點挑戰性的你。"}
+    ]
+    rec_game = random.choice(games)
+
+    # --- 4. 抓取新聞 (台、日、美) ---
     sources = [
-        {"r": "台灣", "u": "https://feeds.feedburner.com/cnaFirstNews", "f": "🇹🇼"},
         {"r": "日本", "u": "https://news.yahoo.co.jp/rss/topics/top-picks.xml", "f": "🇯🇵"},
+        {"r": "台灣", "u": "https://feeds.feedburner.com/cnaFirstNews", "f": "🇹🇼"},
         {"r": "美國", "u": "https://news.google.com/rss/search?q=when:1d+source:Associated_Press", "f": "🇺🇸"}
     ]
     news_html = ""
     for s in sources:
         try:
             feed = feedparser.parse(s["u"])
-            news_html += f'<h2 class="text-2xl font-bold mt-10 mb-4">{s["f"]} {s["region" if "region" in s else "r"]}焦點</h2>'
-            news_html += '<div class="grid grid-cols-1 md:grid-cols-3 gap-4">'
+            news_html += f'<h2 class="text-2xl font-bold mt-10 mb-4">{s["f"]} {s["r"]}焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">'
             for e in feed.entries[:3]:
-                news_html += f'<a href="{e.link}" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:bg-slate-50 transition"><h3 class="font-bold text-sm text-slate-800">{e.title}</h3></a>'
+                news_html += f'<a href="{e.link}" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:bg-slate-50 transition"><h3 class="font-bold text-sm text-slate-800 line-clamp-2">{e.title}</h3></a>'
             news_html += '</div>'
         except: continue
 
-    # --- 3. HTML 模板 ---
+    # --- 5. 完整 HTML 模板 ---
     template = """
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -40,103 +57,147 @@ def build_site():
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <title>SealNews | 繽紛腳印藝術</title>
+    <title>SealNews | FF14 & 繽紛足跡</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; }
+    </style>
 </head>
 <body class="bg-slate-50 p-6 text-slate-900">
     <div class="max-w-6xl mx-auto">
-        <header class="text-center mb-10"><h1 class="text-4xl font-black tracking-tighter">SEAL NEWS</h1><p class="text-slate-500">[DATE]</p></header>
+        <header class="text-center mb-12">
+            <h1 class="text-6xl font-black tracking-tighter text-slate-900">SEAL NEWS</h1>
+            <p class="text-slate-400 mt-2">[DATE] · 冒險者的每日情報</p>
+        </header>
 
-        <section class="rounded-3xl overflow-hidden shadow-lg bg-black text-white mb-10">
-            <img src="[NASA_URL]" class="w-full h-64 object-cover opacity-80">
-            <div class="p-6"><h2 class="text-xl font-bold">[NASA_TITLE]</h2><p class="text-sm opacity-70">[NASA_DESC]</p></div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+            <section class="lg:col-span-2 rounded-3xl overflow-hidden shadow-lg bg-black text-white relative h-80">
+                <img src="[NASA_URL]" class="w-full h-full object-cover opacity-60">
+                <div class="absolute bottom-0 p-6">
+                    <span class="bg-blue-600 text-xs px-2 py-1 rounded mb-2 inline-block">宇宙焦點</span>
+                    <h2 class="text-2xl font-bold">[NASA_TITLE]</h2>
+                </div>
+            </section>
+            <section class="bg-indigo-600 rounded-3xl p-6 text-white shadow-lg flex flex-col justify-between">
+                <div>
+                    <h2 class="text-xl font-bold mb-4">🎮 遊戲推薦</h2>
+                    <h3 class="text-2xl font-black">[G_NAME]</h3>
+                    <p class="text-indigo-100 text-sm mt-2">[G_DESC]</p>
+                </div>
+                <div class="mt-4 pt-4 border-t border-indigo-400 text-xs opacity-80">平台: [G_PLAT]</div>
+            </section>
+        </div>
+
+        <section class="mb-10 bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-black text-slate-800">⚔️ FINAL FANTASY XIV</h2>
+                <a href="https://jp.finalfantasyxiv.com/lodestone/" target="_blank" class="text-sm text-blue-600 font-bold hover:underline">查看 Lodestone 日版官網 →</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+                    <p class="text-xs text-slate-400 uppercase font-bold">伺服器狀態</p>
+                    <p class="text-green-600 font-bold">● All Worlds Normal</p>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+                    <p class="text-xs text-slate-400 uppercase font-bold">目前版本</p>
+                    <p class="text-slate-700 font-bold">Version 7.0 "Dawntrail"</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="text-center">
+                <h2 class="text-xl font-bold mb-4 text-slate-700">今日海豹 🦭</h2>
+                <div class="rounded-3xl overflow-hidden shadow-lg aspect-square border-4 border-white">
+                    <img src="[SEAL_URL]" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <div class="text-center">
+                <h2 class="text-xl font-bold mb-4 text-slate-700">今日貓貓 🐈</h2>
+                <div class="rounded-3xl overflow-hidden shadow-lg aspect-square border-4 border-white">
+                    <img src="[CAT_URL]" class="w-full h-full object-cover">
+                </div>
+            </div>
         </section>
 
         [NEWS_CONTENT]
 
-        <section class="mt-20 text-center border-t border-gray-200 pt-12">
-            <h2 class="text-2xl font-bold mb-6 text-slate-800">今日份的療癒 🐈</h2>
-            <div class="max-w-md mx-auto rounded-3xl overflow-hidden shadow-lg border-4 border-white">
-                <img src="https://cataas.com/cat" class="w-full h-64 object-cover" alt="Daily Cat">
+        <section class="mt-20 border-t border-gray-200 pt-10 text-center relative">
+            <h2 class="text-3xl font-black text-slate-800 mb-2">繽紛足跡 0.0</h2>
+            <p class="text-sm text-slate-400 mb-6">這是一場不完美的矛盾演出...</p>
+            
+            <div id="canvas-wrap" class="w-full h-[500px] bg-white rounded-[2rem] shadow-inner border border-slate-200 relative overflow-hidden">
+                <button onclick="clearCanvas()" class="absolute bottom-6 right-6 bg-slate-800 text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg hover:bg-black transition z-10">
+                    重置畫布 (Clear)
+                </button>
             </div>
-            <p class="mt-4 text-slate-500 italic text-sm">「不管世界如何，總有一隻貓在等著你。」</p>
-        </section>
-
-        <section class="mt-16 border-t border-gray-200 pt-10 text-center">
-            <h2 class="text-2xl font-bold mb-2 text-slate-800">繽紛腳印藝術 0.0</h2>
-            <p class="text-sm text-slate-500 mb-6">狗狗正在興奮地留下彩色足跡！（滑鼠靠近會繞圈）</p>
-            <div id="canvas-wrap" class="w-full h-[450px] bg-white rounded-3xl shadow-inner border relative overflow-hidden"></div>
         </section>
     </div>
 
-    <footer class="text-center py-10 text-gray-400 text-xs mt-10 border-t">© [DATE] SealNews Automation</footer>
+    <footer class="text-center py-12 text-gray-400 text-xs mt-10 border-t border-gray-100 italic">
+        "May you have joy in your journey." - FF14 / [DATE] SealNews Automation
+    </footer>
 
     <script>
     let dog;
     let currentHue = 0;
+    let pg; // 使用圖層來處理 Clear
 
     function setup() {
         let c = document.getElementById('canvas-wrap');
-        let cnv = createCanvas(c.offsetWidth, 450);
+        let cnv = createCanvas(c.offsetWidth, 500);
         cnv.parent('canvas-wrap');
         colorMode(HSB, 360, 100, 100, 1);
-        dog = { 
-            pos: createVector(width/2, height/2), 
-            ang: 0, 
-            rot: 0,
-            stepCounter: 0,
-            noiseOffset: 0
-        };
+        dog = { pos: createVector(width/2, height/2), ang: 0, rot: 0, stepCounter: 0, noiseOffset: 0 };
         background(0, 0, 100); 
     }
 
+    function clearCanvas() {
+        background(0, 0, 100);
+    }
+
     function draw() {
-        // [升級1] 極低刷新率：讓殘留留存極久，形成層疊藝術感
-        fill(0, 0, 100, 0.008); 
+        // [強化] 殘留更久：刷新率降到極致
+        fill(0, 0, 100, 0.005); 
         rect(0, 0, width, height);
 
         let t = createVector(mouseX, mouseY);
+        // 如果滑鼠不在範圍，自動漫遊
         if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {
-            t = createVector(width/2 + sin(frameCount*0.005)*width/3, height/2 + cos(frameCount*0.01)*100);
+            t = createVector(width/2 + sin(frameCount*0.005)*width/3, height/2 + cos(frameCount*0.01)*120);
         }
 
         let d = dist(dog.pos.x, dog.pos.y, t.x, t.y);
         
-        // 運動邏輯
-        if (d < 150) {
+        if (d < 160) {
             dog.ang += 0.045; 
-            // 加入隨機擾動 (Perlin Noise)，讓圓形軌跡不會太死板
-            let jitter = map(noise(dog.noiseOffset), 0, 1, -15, 15);
-            dog.pos.x = t.x + cos(dog.ang) * (95 + jitter);
-            dog.pos.y = t.y + sin(dog.ang) * (95 + jitter);
+            let jitter = map(noise(dog.noiseOffset), 0, 1, -12, 12);
+            dog.pos.x = t.x + cos(dog.ang) * (100 + jitter);
+            dog.pos.y = t.y + sin(dog.ang) * (100 + jitter);
             dog.rot = -atan2(t.x - dog.pos.x, t.y - dog.pos.y);
         } else {
             let v = p5.Vector.sub(t, dog.pos);
             dog.rot = v.heading() + PI/2;
-            v.setMag(1.6);
+            v.setMag(1.8);
             dog.pos.add(v);
         }
-        dog.noiseOffset += 0.05;
+        dog.noiseOffset += 0.04;
 
-        // [升級2] 不規則步伐頻率：模擬生物雀躍感
-        // 利用 frameCount 配合一點點隨機，讓印出頻率不再是死板的 10, 20...
-        if (frameCount % floor(random(8, 15)) == 0) {
-            currentHue = (currentHue + 10) % 360;
+        // [強化] 四足步態：模擬不規則真實感
+        if (frameCount % floor(random(7, 13)) == 0) {
+            currentHue = (currentHue + 8) % 360;
             dog.stepCounter++;
 
             let isFirstPhase = (dog.stepCounter % 2 == 0);
-            
-            // 加入隨機腳步偏移 (Organic Offset)
-            let randLX = random(-3, 3);
-            let randLY = random(-5, 5);
+            let rx = random(-4, 4);
+            let ry = random(-6, 6);
 
             if (isFirstPhase) {
-                // 左前 + 右後，加上隨機震盪
-                drawPaw(dog.pos.x - 12 + randLX, dog.pos.y - 12 + randLY, dog.rot, currentHue); 
-                drawPaw(dog.pos.x + 10 + randLX, dog.pos.y + 25 + randLY, dog.rot, currentHue); 
+                drawPaw(dog.pos.x - 14 + rx, dog.pos.y - 15 + ry, dog.rot, currentHue); 
+                drawPaw(dog.pos.x + 12 + rx, dog.pos.y + 25 + ry, dog.rot, currentHue); 
             } else {
-                // 右前 + 左後
-                drawPaw(dog.pos.x + 12 + randLX, dog.pos.y - 12 + randLY, dog.rot, currentHue); 
-                drawPaw(dog.pos.x - 10 + randLX, dog.pos.y + 25 + randLY, dog.rot, currentHue); 
+                drawPaw(dog.pos.x + 14 + rx, dog.pos.y - 15 + ry, dog.rot, currentHue); 
+                drawPaw(dog.pos.x - 12 + rx, dog.pos.y + 25 + ry, dog.rot, currentHue); 
             }
         }
     }
@@ -146,25 +207,20 @@ def build_site():
         translate(x, y);
         rotate(r);
         noStroke();
-        // [升級3] 彩色層次：增加透明度疊加效果
-        fill(h, 65, 85, 0.4);
-        
-        // 腳印大小隨機微調
-        let s = random(0.8, 1.1);
-        scale(s);
-
-        ellipse(0, 0, 11, 9); 
-        ellipse(-5, -6, 4.5, 4.5);
-        ellipse(-1.5, -8.5, 4.5, 4.5);
-        ellipse(1.5, -8.5, 4.5, 4.5);
-        ellipse(5, -6, 4.5, 4.5);
+        fill(h, 60, 85, 0.45);
+        scale(random(0.8, 1.2));
+        ellipse(0, 0, 12, 10); 
+        ellipse(-6, -7, 5, 5);
+        ellipse(-2, -10, 5, 5);
+        ellipse(2, -10, 5, 5);
+        ellipse(6, -7, 5, 5);
         pop();
     }
 
     function windowResized() {
         let c = document.getElementById('canvas-wrap');
         if(c) {
-            resizeCanvas(c.offsetWidth, 450);
+            resizeCanvas(c.offsetWidth, 500);
             background(0, 0, 100);
         }
     }
@@ -173,12 +229,16 @@ def build_site():
 </html>
 """
 
-    # --- 4. 取代並輸出 ---
+    # --- 6. 取代內容並儲存 ---
     final_html = template.replace("[DATE]", today_str)\
                          .replace("[NASA_URL]", nasa_data["url"])\
                          .replace("[NASA_TITLE]", nasa_data["title"])\
-                         .replace("[NASA_DESC]", nasa_data["desc"])\
-                         .replace("[NEWS_CONTENT]", news_html)
+                         .replace("[SEAL_URL]", seal_url)\
+                         .replace("[CAT_URL]", cat_url)\
+                         .replace("[NEWS_CONTENT]", news_html)\
+                         .replace("[G_NAME]", rec_game["n"])\
+                         .replace("[G_PLAT]", rec_game["p"])\
+                         .replace("[G_DESC]", rec_game["d"])
 
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(final_html)
