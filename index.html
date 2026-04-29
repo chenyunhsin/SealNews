@@ -1,169 +1,77 @@
 
-    <!DOCTYPE html>
-    <html lang="zh-TW">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-        <title>SealNews | 貓貓與柴犬矛盾藝術 0.0</title>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
-        <style>body { font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }</style>
-    </head>
-    <body class="bg-slate-50 text-slate-900 p-6 md:p-10">
-        <header class="text-center mb-10 pb-6 border-b border-gray-100">
-            <h1 class="text-5xl font-black text-gray-900 tracking-tighter">SEAL NEWS</h1>
-            <p class="text-gray-500 mt-2 font-medium">2026-04-29 · 今日世界：充滿希望</p>
-        </header>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <title>SealNews</title>
+</head>
+<body class="bg-slate-50 p-6 text-slate-900">
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10"><h1 class="text-4xl font-black">SEAL NEWS</h1><p>2026-04-29</p></header>
 
-        <main class="max-w-6xl mx-auto">
-            <section class="rounded-3xl overflow-hidden shadow-2xl bg-black text-white aspect-[16/9] md:aspect-[21/9] relative group">
-                <img src="https://apod.nasa.gov/apod/image/2604/moon_venus_pleiades_zoom.jpg" class="w-full h-full object-cover opacity-80 transition duration-700 group-hover:scale-105">
-                <div class="absolute inset-0 bg-gradient-to-t from-black text-white flex flex-col justify-end p-6">
-                    <h2 class="text-3xl font-bold">The Moon, Venus, and the Pleiades</h2>
-                    <p class="text-gray-200 text-sm opacity-80 mt-1 line-clamp-2">No, Earth did not recently acquire six more moons!  Today’s APOD is a combination of images following the Moon, Venus, a...</p>
-                </div>
-            </section>
+        <section class="rounded-3xl overflow-hidden shadow-lg bg-black text-white mb-10">
+            <img src="https://apod.nasa.gov/apod/image/2604/moon_venus_pleiades_zoom.jpg" class="w-full h-64 object-cover opacity-80">
+            <div class="p-6"><h2 class="text-xl font-bold">The Moon, Venus, and the Pleiades</h2><p class="text-sm opacity-70">No, Earth did not recently acquire six more moons!  Today’s APOD is a combination of images followin...</p></div>
+        </section>
 
-            <h2 class="text-2xl font-bold mt-10 mb-4">🇹🇼 台灣焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <a href="https://www.cna.com.tw/news/afe/202505055002.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm text-gray-800">新台幣繼續衝 早盤再度飆漲逾1元衝上29元</h3>
-                    </a>
-                    <a href="https://www.cna.com.tw/news/ahel/202505055001.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm text-gray-800">早安世界》本週2波鋒面接力晴雨交替 6、7日各地恐有大雨</h3>
-                    </a>
-                    <a href="https://www.cna.com.tw/news/afe/202505050023.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm text-gray-800">新台幣開盤為30.91元 早盤勁揚逾8角</h3>
-                    </a></div><h2 class="text-2xl font-bold mt-10 mb-4">🇯🇵 日本焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <a href="https://news.yahoo.co.jp/pickup/6578102?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm text-gray-800">岩手火災 避難指示の大半を解除</h3>
-                    </a>
-                    <a href="https://news.yahoo.co.jp/pickup/6578097?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm text-gray-800">連合会長 裁量労働制の拡充は不要</h3>
-                    </a>
-                    <a href="https://news.yahoo.co.jp/pickup/6578093?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
-                        <h3 class="font-bold text-sm text-gray-800">子の転落事故に注意喚起 消費者庁</h3>
-                    </a></div>
+        <h2 class="text-2xl font-bold mt-10 mb-4">🇹🇼 台灣焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4"><a href="https://www.cna.com.tw/news/afe/202505055002.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:bg-slate-50 transition"><h3 class="font-bold text-sm">新台幣繼續衝 早盤再度飆漲逾1元衝上29元</h3></a><a href="https://www.cna.com.tw/news/ahel/202505055001.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:bg-slate-50 transition"><h3 class="font-bold text-sm">早安世界》本週2波鋒面接力晴雨交替 6、7日各地恐有大雨</h3></a><a href="https://www.cna.com.tw/news/afe/202505050023.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:bg-slate-50 transition"><h3 class="font-bold text-sm">新台幣開盤為30.91元 早盤勁揚逾8角</h3></a></div><h2 class="text-2xl font-bold mt-10 mb-4">🇯🇵 日本焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4"><a href="https://news.yahoo.co.jp/pickup/6578102?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:bg-slate-50 transition"><h3 class="font-bold text-sm">岩手火災 避難指示の大半を解除</h3></a><a href="https://news.yahoo.co.jp/pickup/6578097?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:bg-slate-50 transition"><h3 class="font-bold text-sm">連合会長 裁量労働制の拡充は不要</h3></a><a href="https://news.yahoo.co.jp/pickup/6578093?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:bg-slate-50 transition"><h3 class="font-bold text-sm">子の転落事故に注意喚起 消費者庁</h3></a></div><h2 class="text-2xl font-bold mt-10 mb-4">🇺🇸 美國焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4"><a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxOeGhfSmI5ckkzRy1qZkpqYVRISGR0RjJMYkFvbG9jUVBGa2Nfbl9MTDNqbWt0d3dTZU9vVmRaWXVQQ1UxYlhaTVM2eGd2bG5UNVphc3lnTXJOLTZLdF9jTXViODRWZkYyOTFoS3JtWHNjS1M3SEl5emo0MG9uZ25LcVNSWU5zdmxhT3doN0tJdU9BeHdscDg0MTRXSWJnZ28?oc=5" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:bg-slate-50 transition"><h3 class="font-bold text-sm">Lions pick up Jahmyr Gibbs' 5th-year option and decline option for Jack Campbell, AP source says - AP News</h3></a><a href="https://news.google.com/rss/articles/CBMirAFBVV95cUxOZzF1c3A1Q05JMVo5UDZHNFJ5N1l0bDNyZmlpVmV0cmp5VUFtVEszMUg3YUVvNkhIN3hLVWJHZldONWpHeXA4WXEybnE5YjZwaGxfVjlRZ0Nqck92elUtYWZPSHZtTEJMbnR6SE1GaGFLSVdCLVFfVGJJMXZMb1BIbS1EQVNMbm1Xd1IzNFpmb3VNakZoUlpWZG5nWklCa3BSd3ZWVk9JU2R2d1Jf?oc=5" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:bg-slate-50 transition"><h3 class="font-bold text-sm">Aldi is removing 44 ingredients from its products by the end of 2027 - Alaska's News Source</h3></a><a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxPVHFhcEM5cXRPaW5PV21BUVI0dDVwZkZGQnZidFhTd3ZMSGpBRkJtZjVmOExWVGFVN1lGbS01WlBJV1dxZExQbUk0X3IyaEdjOEM5aEE4SEpvY3BjRXY1STRCSzRXS0taWi1RMEVWSTdSYnprdC1TZk1yVUxKV2RzdmN3UHJEOVpBeWtDR1BjVFNwWDRMc21yWDg0WS0zRVozczZVd3d4SnVVNXBNN0lkTDJrNHNUQUR4T1J3MTBCUXN1TF9uOG83UQ?oc=5" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:bg-slate-50 transition"><h3 class="font-bold text-sm">Guardians prospect Travis Bazzana, 2024 top overall pick, will be called up Tuesday, AP source says - Spectrum News</h3></a></div>
 
-            <section class="mt-20 text-center border-t border-gray-100 pt-16">
-                <h2 class="text-3xl font-bold mb-8 text-gray-900">今日份的療癒 🐈</h2>
-                <div class="max-w-md mx-auto rounded-3xl overflow-hidden shadow-lg border-4 border-white">
-                    <img src="https://cataas.com/cat" class="w-full h-64 object-cover" alt="Daily Cat">
-                </div>
-                <p class="mt-4 text-gray-500 italic text-sm">「不管世界局勢如何變幻，總有一隻貓在默默陪著你。」</p>
-            </section>
+        <section class="mt-20 border-t pt-10 text-center">
+            <h2 class="text-2xl font-bold mb-2">狗狗的矛盾藝術 0.0</h2>
+            <p class="text-sm text-slate-500 mb-6">看著腳印慢慢繞圈...（滑鼠是項圈）</p>
+            <div id="canvas-wrap" class="w-full h-[400px] bg-white rounded-3xl shadow-inner border relative overflow-hidden"></div>
+        </section>
+    </div>
 
-            <section class="mt-20 border-t border-gray-100 pt-10 text-center">
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">柴犬的矛盾藝術 0.0</h2>
-                <p class="text-sm text-gray-500 mb-6">點擊柴犬試著套上項圈，給牠一個 ❤️ 吧！</p>
-                <div id="dog-art-container" class="w-full h-[400px] bg-white rounded-3xl shadow-inner relative overflow-hidden">
-                </div>
-            </section>
-        </main>
-
-        <footer class="text-center py-10 text-gray-400 text-xs border-t border-gray-100 mt-16">
-            &copy; 2026-04-29 SealNews Automation
-        </footer>
-
-        <script>
-        let dogImg, pawImg, caughtCollarImg;
-        let dog;
-        let isCaught = false;
-
-        function preload() {
-            // 這裡所有的圖片載入都加上了 loadImage
-            dogImg = loadImage('https://img.icons8.com/color/96/shiba-inu.png'); 
-            caughtCollarImg = loadImage('https://img.icons8.com/color/48/dog-collar.png'); 
-            pawImg = loadImage('https://img.icons8.com/color/48/dog-paw.png');
+    <script>
+    let dog;
+    function setup() {
+        let c = document.getElementById('canvas-wrap');
+        let cnv = createCanvas(c.offsetWidth, 400);
+        cnv.parent('canvas-wrap');
+        dog = { pos: createVector(width/2, height/2), ang: 0, rot: 0 };
+        background(255);
+    }
+    function draw() {
+        background(255, 30); // 增加殘影感
+        let t = createVector(mouseX, mouseY);
+        // 自動漫遊
+        if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {
+            t = createVector(width/2 + sin(frameCount*0.005)*width/3, height/2 + cos(frameCount*0.01)*100);
         }
 
-        function setup() {
-            let container = document.getElementById('dog-art-container');
-            if(!container) return; // 預防畫布容器不存在
-            let canvas = createCanvas(container.offsetWidth, 400);
-            canvas.parent('dog-art-container');
-            
-            // 項圈游標直接使用字串路徑，不由 preload 載入
-            container.style.cursor = `url('https://img.icons8.com/color/48/dog-collar.png') 24 24, auto`;
-
-            dog = {
-                pos: createVector(width/2, height/2),
-                angle: 0,
-                rotation: 0,
-                speed: 2.2,
-                display: function() {
-                    push();
-                    translate(this.pos.x, this.pos.y);
-                    rotate(isCaught ? sin(frameCount * 0.1) * 0.1 : this.rotation);
-                    imageMode(CENTER);
-                    
-                    // 如果被點擊到，縮小並戴上項圈
-                    if (isCaught) {
-                        image(dogImg, 0, 0, 70, 70);
-                        image(caughtCollarImg, 0, 15, 30, 30); // 這裡使用了 preload 載入的圖片
-                    } else {
-                        image(dogImg, 0, 0, 90, 90);
-                    }
-                    
-                    if (isCaught) {
-                        textSize(32); textAlign(CENTER); text('❤️', 0, -50);
-                    }
-                    pop();
-                }
-            };
-            background(255);
+        let d = dist(dog.pos.x, dog.pos.y, t.x, t.y);
+        if (d < 120) {
+            dog.ang += 0.05; // 慢速旋轉
+            dog.pos.x = t.x + cos(dog.ang) * 80;
+            dog.pos.y = t.y + sin(dog.ang) * 80;
+            dog.rot = dog.ang + PI/2;
+        } else {
+            let v = p5.Vector.sub(t, dog.pos);
+            dog.rot = v.heading() + PI/2;
+            v.setMag(1.2); // 慢速移動
+            dog.pos.add(v);
         }
 
-        function draw() {
-            // 簡化邏輯：如果是空白，請確認是否 preload() 有圖片載入失敗
-            background(255, isCaught ? 10 : 35); 
-            let target = createVector(mouseX, mouseY);
-            
-            if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {
-                target = createVector(
-                    width/2 + sin(frameCount * 0.01) * (width/3),
-                    height/2 + cos(frameCount * 0.015) * 100
-                );
-            }
-
-            if (!isCaught) {
-                let d = p5.Vector.dist(dog.pos, target);
-                if (d < 120) {
-                    dog.angle += 0.1;
-                    dog.pos.x = target.x + cos(dog.angle) * 85;
-                    dog.pos.y = target.y + sin(dog.angle) * 85;
-                    dog.rotation = dog.angle + PI/2;
-                } else {
-                    let vel = p5.Vector.sub(target, dog.pos);
-                    dog.rotation = vel.heading() + PI/2;
-                    vel.setMag(dog.speed);
-                    dog.pos.add(vel);
-                }
-                
-                // 畫腳印
-                if (frameCount % 18 == 0) {
-                    push(); translate(dog.pos.x, dog.pos.y); rotate(dog.rotation);
-                    tint(255, 60); // 腳印顏色
-                    image(pawImg, 10, 10, 15, 15);
-                    pop();
-                }
-            }
-            dog.display();
+        // 畫出腳印 (用程式畫肉球)
+        if (frameCount % 40 == 0) {
+            noStroke(); fill(180, 160, 140, 150);
+            push(); translate(dog.pos.x, dog.pos.y); rotate(dog.rot);
+            ellipse(0, 0, 10, 8); // 大墊
+            ellipse(-5, -5, 4, 4); ellipse(0, -7, 4, 4); ellipse(5, -5, 4, 4); // 腳趾
+            pop();
         }
-
-        function mousePressed() {
-            let d = dist(mouseX, mouseY, dog.pos.x, dog.pos.y);
-            if (d < 55) {
-                isCaught = true;
-                setTimeout(() => { isCaught = false; }, 3000);
-            }
-        }
-
-        function windowResized() {
-            let container = document.getElementById('dog-art-container');
-            if(container) resizeCanvas(container.offsetWidth, 400);
-        }
-        </script>
-    </body>
-    </html>
-    
+        
+        // 畫出狗狗（現在用一個溫暖的深灰色圓點代替，像是一顆小石子或影子的感覺）
+        fill(80); noStroke();
+        ellipse(dog.pos.x, dog.pos.y, 12, 12);
+    }
+    function windowResized() {
+        let c = document.getElementById('canvas-wrap');
+        if(c) resizeCanvas(c.offsetWidth, 400);
+    }
+    </script>
+</body>
+</html>
