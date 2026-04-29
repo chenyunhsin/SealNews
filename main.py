@@ -157,7 +157,9 @@ function windowResized() {
     final_html = template.replace("[DATE]", today_str)\
                          .replace("[NASA_URL]", nasa_data["url"])\
                          .replace("[NASA_TITLE]", nasa_data["title"])\
-                         .replace("[NASA_DESC]", nasa
+                         .replace("[NASA_DESC]", nasa_data["explanation"])\
+                         .replace("[NEWS_CONTENT]", news_html)\
+                         .replace("[JS_CODE]", js_code)
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(final_html)
 
