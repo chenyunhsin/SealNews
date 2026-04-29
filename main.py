@@ -53,12 +53,10 @@ def build_site():
                 </a>'''
         news_html += '</div></section>'
 
-    # --- 4. 情緒分析與換膚 ---
-    # 這裡可以根據新聞標題關鍵字做簡單判斷
     sentiment_color = "bg-slate-50"
-    mood_text = "今日世界氣氛：平靜日常"
+    mood_text = "今日世界氣氛：充滿希望"
     
-    # --- 5. 組合最終 HTML ---
+    # --- 5. 組合最終 HTML (使用 {{ }} 轉義 JavaScript 的大括號) ---
     full_html = f'''
     <!DOCTYPE html>
     <html lang="zh-TW">
@@ -66,7 +64,7 @@ def build_site():
         <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-        <title>SealNews | 世界局勢與狗狗藝術</title>
+        <title>SealNews | 狗狗矛盾藝術</title>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
         <style>body {{ font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }}</style>
     </head>
@@ -95,13 +93,12 @@ def build_site():
                 <div class="max-w-md mx-auto rounded-3xl overflow-hidden shadow-lg border-4 border-white">
                     <img src="{cat_url}" class="w-full h-64 object-cover" alt="Daily Cat">
                 </div>
-                <p class="mt-4 text-slate-500 italic text-sm">「不管世界局勢如何變幻，總有一隻貓在默默陪著你。」</p>
             </section>
 
             <section class="mt-20 border-t pt-10 text-center">
                 <h2 class="text-2xl font-bold text-slate-800 mb-2">狗狗的矛盾藝術 0.0</h2>
                 <p class="text-sm text-slate-500 mb-6">當你拿著項圈（滑鼠）靠近，牠會興奮地繞著你轉圈圈</p>
-                <div id="dog-canvas-container" class="w-full h-[300px] bg-white/50 rounded-3xl shadow-inner cursor-crosshair"></div>
+                <div id="dog-canvas-container" class="w-full h-[350px] bg-white/50 rounded-3xl shadow-inner relative overflow-hidden"></div>
             </section>
         </main>
 
@@ -109,91 +106,74 @@ def build_site():
             &copy; {today_str} SealNews Automation
         </footer>
 
-       <script>
-let dogImg, collarImg;
-let dog;
+        <script>
+        let dogImg, collarImg;
+        let dog;
 
-function preload() {
-    // 這裡使用透明背景的狗狗圖片與項圈圖
-    // 如果圖片連結失效，會自動降級回圓點模式
-    dogImg = loadImage('https://img.icons8.com/color/96/dog--v1.png'); 
-    collarImg = 'https://img.icons8.com/color/48/dog-collar.png';
-}
+        function preload() {{
+            dogImg = loadImage('https://img.icons8.com/color/96/dog--v1.png'); 
+            collarImg = 'https://img.icons8.com/color/48/dog-collar.png';
+        }}
 
-function setup() {
-    let container = document.getElementById('dog-canvas-container');
-    let canvas = createCanvas(container.offsetWidth, 300);
-    canvas.parent('dog-canvas-container');
-    
-    // 設定滑鼠游標為項圈
-    container.style.cursor = `url('${collarImg}'), auto`;
+        function setup() {{
+            let container = document.getElementById('dog-canvas-container');
+            let canvas = createCanvas(container.offsetWidth, 350);
+            canvas.parent('dog-canvas-container');
+            container.style.cursor = `url('${{collarImg}}') 24 24, auto`;
 
-    dog = {
-        pos: createVector(width/2, height/2),
-        angle: 0,
-        rotation: 0,
-        display: function() {
-            push();
-            translate(this.pos.x, this.pos.y);
-            rotate(this.rotation); // 讓狗狗面向移動方向
+            dog = {{
+                pos: createVector(width/2, height/2),
+                angle: 0,
+                rotation: 0,
+                display: function() {{
+                    push();
+                    translate(this.pos.x, this.pos.y);
+                    rotate(this.rotation);
+                    imageMode(CENTER);
+                    if (dogImg) image(dogImg, 0, 0, 80, 80);
+                    pop();
+                }}
+            }};
+            background(255);
+        }}
+
+        function draw() {{
+            background(255, 40); 
+            let target = createVector(mouseX, mouseY);
             
-            if (dogImg) {
-                imageMode(CENTER);
-                image(dogImg, 0, 0, 60, 60);
-            } else {
-                fill(60);
-                ellipse(0, 0, 20, 20);
-            }
-            pop();
-        }
-    };
-    background(255);
-}
+            if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {{
+                target = createVector(
+                    width/2 + sin(frameCount * 0.01) * (width/3),
+                    height/2 + cos(frameCount * 0.02) * 100
+                );
+            }}
 
-function draw() {
-    background(255, 30); 
-    let target = createVector(mouseX, mouseY);
-    
-    // 自動漫遊
-    if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {
-        target = createVector(
-            width/2 + sin(frameCount * 0.01) * (width/3),
-            height/2 + cos(frameCount * 0.02) * 80
-        );
-    }
+            let d = p5.Vector.dist(dog.pos, target);
+            if (d < 130) {{
+                dog.angle += 0.18;
+                dog.pos.x = target.x + cos(dog.angle) * 90;
+                dog.pos.y = target.y + sin(dog.angle) * 90;
+                dog.rotation = dog.angle + PI/2;
+                
+                if (frameCount % 4 == 0) {{
+                    noStroke();
+                    fill(255, 150, 150, 100);
+                    ellipse(dog.pos.x, dog.pos.y, 6, 6);
+                }}
+            }} else {{
+                let vel = p5.Vector.sub(target, dog.pos);
+                dog.rotation = vel.heading() + PI/2;
+                vel.setMag(4);
+                dog.pos.add(vel);
+            }}
+            dog.display();
+        }}
 
-    let d = p5.Vector.dist(dog.pos, target);
-    let prevPos = dog.pos.copy();
-
-    if (d < 120) {
-        // 興奮模式：距離項圈近時，瘋狂轉圈
-        dog.angle += 0.15;
-        dog.pos.x = target.x + cos(dog.angle) * 80;
-        dog.pos.y = target.y + sin(dog.angle) * 80;
-        // 繞圈時稍微傾斜
-        dog.rotation = dog.angle + HALF_PI;
-        
-        // 留下興奮的彩色腳印
-        if (frameCount % 5 == 0) {
-            fill(255, 100, 100, 150);
-            ellipse(dog.pos.x, dog.pos.y, 5, 5);
-        }
-    } else {
-        // 追逐模式：面向目標前進
-        let vel = p5.Vector.sub(target, dog.pos);
-        dog.rotation = vel.heading() + HALF_PI; // 計算前進的角度
-        vel.setMag(3.5);
-        dog.pos.add(vel);
-    }
-    
-    dog.display();
-}
-
-function windowResized() {
-    let container = document.getElementById('dog-canvas-container');
-    resizeCanvas(container.offsetWidth, 300);
-}
-</script>
+        function windowResized() {{
+            let container = document.getElementById('dog-canvas-container');
+            resizeCanvas(container.offsetWidth, 350);
+        }}
+        </script>
     </body>
     </html>
     '''
