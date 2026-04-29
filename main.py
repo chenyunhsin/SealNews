@@ -158,3 +158,8 @@ function windowResized() {
                          .replace("[NASA_URL]", nasa_data["url"])\
                          .replace("[NASA_TITLE]", nasa_data["title"])\
                          .replace("[NASA_DESC]", nasa
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(final_html)
+
+if __name__ == "__main__":
+    build_site()
