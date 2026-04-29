@@ -5,14 +5,13 @@ import os
 import urllib.parse
 
 def translate_text(text, target_lang='zh-TW'):
-    """使用 Google Translate 公共介面翻譯標題"""
     try:
         if not text: return ""
         url = f"https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl={target_lang}&dt=t&q={urllib.parse.quote(text)}"
         resp = requests.get(url, timeout=5).json()
         return "".join([s[0] for s in resp[0]])
     except:
-        return text # 翻譯失敗則回傳原標題
+        return text
 
 def build_site():
     today_str = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -25,7 +24,7 @@ def build_site():
         nasa_data["title"] = translate_text(resp.get("title", "NASA APOD"))
     except: pass
 
-    # --- 2. 新聞數據 (加入翻譯邏輯) ---
+    # --- 2. 新聞數據 ---
     sources = [
         {"r": "日本", "u": "https://news.yahoo.co.jp/rss/topics/top-picks.xml", "f": "🇯🇵", "need_tr": True},
         {"r": "台灣", "u": "https://feeds.feedburner.com/cnaFirstNews", "f": "🇹🇼", "need_tr": False},
@@ -50,7 +49,7 @@ def build_site():
             news_html += '</div></div>'
         except: continue
 
-    # --- 3. HTML 模板 (嚴格檢查引號封閉) ---
+    # --- 3. HTML 模板 ---
     template = """
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -58,7 +57,7 @@ def build_site():
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <title>SealNews | Panoramic Observer</title>
+    <title>SealNews | 薯條咚咚咚</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;900&display=swap');
         body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8fafc; }
@@ -78,28 +77,16 @@ def build_site():
             </div>
         </section>
 
-        <h2 class="text-3xl font-black mb-10 text-center border-b-4 border-slate-900 pb-4 w-fit mx-auto">🌏 地球全景觀測矩陣</h2>
+        <h2 class="text-3xl font-black mb-10 text-center border-b-4 border-slate-900 pb-4 w-fit mx-auto">🌏 地球即時觀測</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
             <div class="text-center">
-                <p class="text-xs font-black text-red-600 mb-3 tracking-widest uppercase">📡 Earthquake Live / 台灣地震</p>
+                <p class="text-xs font-black text-red-600 mb-3 tracking-widest uppercase">📡 地震測報即時影像</p>
                 <div class="aspect-video rounded-[1.5rem] overflow-hidden shadow-xl border-4 border-white bg-black">
                     <iframe class="w-full h-full" src="https://www.youtube.com/embed/KyT4qSK8lJo?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="text-center">
-                <p class="text-xs font-black text-blue-700 mb-3 tracking-widest uppercase"> Fuji Live / 富士山即時</p>
-                <div class="aspect-video rounded-[1.5rem] overflow-hidden shadow-xl border-4 border-white bg-black">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/bdUbACCWmo?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-            <div class="text-center">
-                <p class="text-xs font-black text-green-700 mb-3 tracking-widest uppercase">🐾 Africam Live / 非洲草原</p>
-                <div class="aspect-video rounded-[1.5rem] overflow-hidden shadow-xl border-4 border-white bg-black">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/dJVVcv9-ndg?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-            <div class="text-center">
-                <p class="text-xs font-black text-orange-800 mb-3 tracking-widest uppercase"> Rural Life / 農村生活</p>
+                <p class="text-xs font-black text-orange-800 mb-3 tracking-widest uppercase">🧑‍🌾 農村生活觀測</p>
                 <div class="aspect-video rounded-[1.5rem] overflow-hidden shadow-xl border-4 border-white bg-black">
                     <iframe class="w-full h-full" src="https://www.youtube.com/embed/mVlmJ7bHBm8?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
                 </div>
@@ -112,14 +99,14 @@ def build_site():
 
         <section class="mb-20 text-center border-t border-slate-200 pt-16">
             <h2 class="text-2xl font-bold mb-6 text-slate-800">今日份的療癒 🐈</h2>
-            <div class="max-w-sm mx-auto rounded-[2.5rem] overflow-hidden shadow-lg border-4 border-white">
-                <img src="https://cataas.com/cat" class="w-full h-64 object-cover">
+            <div class="max-w-2xl mx-auto rounded-[2.5rem] overflow-hidden shadow-lg border-4 border-white bg-white">
+                <img src="https://cataas.com/cat" class="w-full max-h-[500px] object-contain mx-auto" alt="Daily Cat">
             </div>
-            <p class="mt-4 text-slate-500 italic text-sm">「不管世界局勢如何變幻，總有一隻貓在默默陪著你。」</p>
+            <p class="mt-6 text-slate-500 italic text-sm font-medium">「不管世界局勢如何變幻，總有一隻貓在默默陪著你。」</p>
         </section>
 
         <section class="mt-20 border-t border-slate-200 pt-10 text-center relative">
-            <h2 class="text-3xl font-black text-slate-900 mb-2">Footprint Art 0.0</h2>
+            <h2 class="text-3xl font-black text-slate-900 mb-2">薯條咚咚咚路徑</h2>
             <div id="canvas-wrap" class="w-full h-[500px] bg-white rounded-[3rem] shadow-inner border border-slate-100 relative overflow-hidden mt-8">
                 <button onclick="clearCanvas()" class="absolute bottom-6 right-6 bg-slate-900 text-white px-6 py-2 rounded-full text-[10px] font-black shadow-lg hover:bg-black transition z-10">
                     CLEAR CANVAS
@@ -129,7 +116,7 @@ def build_site():
     </div>
 
     <footer class="text-center py-20 text-slate-300 text-[10px] font-black tracking-[0.3em] uppercase">
-        [DATE] • SealNews Panoramic Observer
+        [DATE] • SealNews
     </footer>
 
     <script>
