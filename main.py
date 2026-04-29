@@ -79,7 +79,6 @@ def build_site():
         let cnv = createCanvas(c.offsetWidth, 450);
         cnv.parent('canvas-wrap');
         colorMode(HSB, 360, 100, 100, 1);
-        // 初始化狗狗位置
         dog = { 
             pos: createVector(width/2, height/2), 
             ang: 0, 
@@ -105,9 +104,14 @@ def build_site():
             dog.ang += 0.04; 
             dog.pos.x = t.x + cos(dog.ang) * 95;
             dog.pos.y = t.y + sin(dog.ang) * 95;
-            dog.rot = dog.ang + PI/2;
+            
+            // --- [關鍵修正] ---
+            // 在繞圈時，精確計算切線方向
+            // atan2(dx, dy) 算出垂直於半徑的角度，這才是落腳的真實方向
+            dog.rot = -atan2(t.x - dog.pos.x, t.y - dog.pos.y);
         } else {
             let v = p5.Vector.sub(t, dog.pos);
+            // 直線追逐時維持 heading() 邏輯
             dog.rot = v.heading() + PI/2;
             v.setMag(1.4);
             dog.pos.add(v);
@@ -118,17 +122,16 @@ def build_site():
             currentHue = (currentHue + 15) % 360;
             dog.stepCounter++;
 
-            // 模擬四足交替邏輯 (Trot 步態)
-            // 第一步：左前腳 + 右後腳
-            // 第二步：右前腳 + 左後腳
             let isFirstPhase = (dog.stepCounter % 2 == 0);
             
+            // 模擬前腳與後腳的空間相位
+            // 前腳向前一點 (y-10)，後腳向後一點 (y+20)
             if (isFirstPhase) {
-                drawPaw(dog.pos.x - 12, dog.pos.y - 5, dog.rot, currentHue); // 左前
-                drawPaw(dog.pos.x + 10, dog.pos.y + 15, dog.rot, currentHue); // 右後
+                drawPaw(dog.pos.x - 12, dog.pos.y - 10, dog.rot, currentHue); // 左前
+                drawPaw(dog.pos.x + 10, dog.pos.y + 20, dog.rot, currentHue); // 右後
             } else {
-                drawPaw(dog.pos.x + 12, dog.pos.y - 5, dog.rot, currentHue); // 右前
-                drawPaw(dog.pos.x - 10, dog.pos.y + 15, dog.rot, currentHue); // 左後
+                drawPaw(dog.pos.x + 12, dog.pos.y - 10, dog.rot, currentHue); // 右前
+                drawPaw(dog.pos.x - 10, dog.pos.y + 20, dog.rot, currentHue); // 左後
             }
         }
     }
@@ -136,10 +139,11 @@ def build_site():
     function drawPaw(x, y, r, h) {
         push();
         translate(x, y);
+        // 核心修正：每個腳印獨立旋轉，完美切齊路徑
         rotate(r);
         noStroke();
         fill(h, 60, 80, 0.5);
-        // 縮小一點腳印，讓四隻腳看起來更精緻
+        
         ellipse(0, 0, 10, 8); 
         ellipse(-5, -6, 4, 4);
         ellipse(-1.5, -8, 4, 4);
