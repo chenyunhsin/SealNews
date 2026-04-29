@@ -109,57 +109,91 @@ def build_site():
             &copy; {today_str} SealNews Automation
         </footer>
 
-        <script>
-        let dog;
-        function setup() {{
-            let container = document.getElementById('dog-canvas-container');
-            let canvas = createCanvas(container.offsetWidth, 300);
-            canvas.parent('dog-canvas-container');
-            dog = {{
-                pos: createVector(width/2, height/2),
-                angle: 0,
-                display: function() {{
-                    fill(60, 60, 60, 180);
-                    noStroke();
-                    // 畫出小爪印的感覺
-                    ellipse(this.pos.x, this.pos.y, 8, 8);
-                }}
-            }};
-            background(255, 0); // 透明背景讓它吃 CSS 顏色
-        }}
+       <script>
+let dogImg, collarImg;
+let dog;
 
-        function draw() {{
-            background(255, 10); 
-            let target = createVector(mouseX, mouseY);
+function preload() {
+    // 這裡使用透明背景的狗狗圖片與項圈圖
+    // 如果圖片連結失效，會自動降級回圓點模式
+    dogImg = loadImage('https://img.icons8.com/color/96/dog--v1.png'); 
+    collarImg = 'https://img.icons8.com/color/48/dog-collar.png';
+}
+
+function setup() {
+    let container = document.getElementById('dog-canvas-container');
+    let canvas = createCanvas(container.offsetWidth, 300);
+    canvas.parent('dog-canvas-container');
+    
+    // 設定滑鼠游標為項圈
+    container.style.cursor = `url('${collarImg}'), auto`;
+
+    dog = {
+        pos: createVector(width/2, height/2),
+        angle: 0,
+        rotation: 0,
+        display: function() {
+            push();
+            translate(this.pos.x, this.pos.y);
+            rotate(this.rotation); // 讓狗狗面向移動方向
             
-            // 如果滑鼠不在範圍內，讓狗狗在中間畫 8 字型漫遊
-            if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {{
-                target = createVector(
-                    width/2 + sin(frameCount * 0.02) * (width/3),
-                    height/2 + sin(frameCount * 0.04) * 50
-                );
-            }}
+            if (dogImg) {
+                imageMode(CENTER);
+                image(dogImg, 0, 0, 60, 60);
+            } else {
+                fill(60);
+                ellipse(0, 0, 20, 20);
+            }
+            pop();
+        }
+    };
+    background(255);
+}
 
-            let d = p5.Vector.dist(dog.pos, target);
-            if (d < 100) {{
-                // 興奮模式：瘋狂繞圈 (矛盾心理)
-                dog.angle += 0.25;
-                dog.pos.x = target.x + cos(dog.angle) * 70;
-                dog.pos.y = target.y + sin(dog.angle) * 70;
-            }} else {{
-                // 追逐模式
-                let vel = p5.Vector.sub(target, dog.pos);
-                vel.setMag(4);
-                dog.pos.add(vel);
-            }}
-            dog.display();
-        }}
+function draw() {
+    background(255, 30); 
+    let target = createVector(mouseX, mouseY);
+    
+    // 自動漫遊
+    if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {
+        target = createVector(
+            width/2 + sin(frameCount * 0.01) * (width/3),
+            height/2 + cos(frameCount * 0.02) * 80
+        );
+    }
 
-        function windowResized() {{
-            let container = document.getElementById('dog-canvas-container');
-            resizeCanvas(container.offsetWidth, 300);
-        }}
-        </script>
+    let d = p5.Vector.dist(dog.pos, target);
+    let prevPos = dog.pos.copy();
+
+    if (d < 120) {
+        // 興奮模式：距離項圈近時，瘋狂轉圈
+        dog.angle += 0.15;
+        dog.pos.x = target.x + cos(dog.angle) * 80;
+        dog.pos.y = target.y + sin(dog.angle) * 80;
+        // 繞圈時稍微傾斜
+        dog.rotation = dog.angle + HALF_PI;
+        
+        // 留下興奮的彩色腳印
+        if (frameCount % 5 == 0) {
+            fill(255, 100, 100, 150);
+            ellipse(dog.pos.x, dog.pos.y, 5, 5);
+        }
+    } else {
+        // 追逐模式：面向目標前進
+        let vel = p5.Vector.sub(target, dog.pos);
+        dog.rotation = vel.heading() + HALF_PI; // 計算前進的角度
+        vel.setMag(3.5);
+        dog.pos.add(vel);
+    }
+    
+    dog.display();
+}
+
+function windowResized() {
+    let container = document.getElementById('dog-canvas-container');
+    resizeCanvas(container.offsetWidth, 300);
+}
+</script>
     </body>
     </html>
     '''
