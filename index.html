@@ -5,7 +5,7 @@
         <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-        <title>SealNews | 狗狗矛盾藝術</title>
+        <title>SealNews | 柴犬藝術 0.0</title>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
         <style>body { font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }</style>
     </head>
@@ -65,16 +65,9 @@
                     <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
                 </a></div></section>
 
-            <section class="mt-20 text-center border-t pt-12">
-                <h2 class="text-2xl font-bold mb-6 text-slate-800">今日份的療癒 🐈</h2>
-                <div class="max-w-md mx-auto rounded-3xl overflow-hidden shadow-lg border-4 border-white">
-                    <img src="https://cataas.com/cat" class="w-full h-64 object-cover" alt="Daily Cat">
-                </div>
-            </section>
-
             <section class="mt-20 border-t pt-10 text-center">
-                <h2 class="text-2xl font-bold text-slate-800 mb-2">狗狗的矛盾藝術 0.0</h2>
-                <p class="text-sm text-slate-500 mb-6">當你拿著項圈（滑鼠）靠近，牠會興奮地繞著你轉圈圈</p>
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">柴犬的矛盾藝術 0.0</h2>
+                <p class="text-sm text-slate-500 mb-6">點擊狗狗試著「套上項圈」吧！</p>
                 <div id="dog-canvas-container" class="w-full h-[350px] bg-white/50 rounded-3xl shadow-inner relative overflow-hidden"></div>
             </section>
         </main>
@@ -84,11 +77,14 @@
         </footer>
 
         <script>
-        let dogImg, collarImg;
+        let dogImg, collarImg, caughtImg, pawImg;
         let dog;
+        let isCaught = false;
 
         function preload() {
-            dogImg = loadImage('https://img.icons8.com/color/96/dog--v1.png'); 
+            dogImg = loadImage('https://img.icons8.com/color/96/shiba-inu.png'); 
+            caughtImg = loadImage('https://img.icons8.com/color/96/dog-collar.png'); // 戴上項圈的示意
+            pawImg = loadImage('https://img.icons8.com/color/48/dog-paw.png');
             collarImg = 'https://img.icons8.com/color/48/dog-collar.png';
         }
 
@@ -102,12 +98,19 @@
                 pos: createVector(width/2, height/2),
                 angle: 0,
                 rotation: 0,
+                speed: 2.5,
                 display: function() {
                     push();
                     translate(this.pos.x, this.pos.y);
                     rotate(this.rotation);
                     imageMode(CENTER);
-                    if (dogImg) image(dogImg, 0, 0, 80, 80);
+                    if (isCaught) {
+                        image(dogImg, 0, 0, 90, 90);
+                        // 在狗狗身上疊加一個項圈圖標
+                        image(caughtImg, 0, 15, 40, 40);
+                    } else {
+                        image(dogImg, 0, 0, 80, 80);
+                    }
                     pop();
                 }
             };
@@ -115,35 +118,58 @@
         }
 
         function draw() {
+            if (isCaught) {
+                background(255, 5); // 停止時留下淡出的殘影
+                dog.rotation = sin(frameCount * 0.1) * 0.1; // 搖頭晃腦
+                dog.display();
+                return;
+            }
+
             background(255, 40); 
             let target = createVector(mouseX, mouseY);
             
             if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {
                 target = createVector(
                     width/2 + sin(frameCount * 0.01) * (width/3),
-                    height/2 + cos(frameCount * 0.02) * 100
+                    height/2 + cos(frameCount * 0.015) * 80
                 );
             }
 
             let d = p5.Vector.dist(dog.pos, target);
-            if (d < 130) {
-                dog.angle += 0.18;
-                dog.pos.x = target.x + cos(dog.angle) * 90;
-                dog.pos.y = target.y + sin(dog.angle) * 90;
+            if (d < 120) {
+                // 興奮繞圈（速度變慢一點）
+                dog.angle += 0.12;
+                dog.pos.x = target.x + cos(dog.angle) * 85;
+                dog.pos.y = target.y + sin(dog.angle) * 85;
                 dog.rotation = dog.angle + PI/2;
-                
-                if (frameCount % 4 == 0) {
-                    noStroke();
-                    fill(255, 150, 150, 100);
-                    ellipse(dog.pos.x, dog.pos.y, 6, 6);
-                }
             } else {
+                // 追逐
                 let vel = p5.Vector.sub(target, dog.pos);
                 dog.rotation = vel.heading() + PI/2;
-                vel.setMag(4);
+                vel.setMag(dog.speed);
                 dog.pos.add(vel);
             }
+
+            // 留下腳印
+            if (frameCount % 15 == 0) {
+                push();
+                translate(dog.pos.x, dog.pos.y);
+                rotate(dog.rotation);
+                tint(255, 100);
+                image(pawImg, 10, 10, 15, 15);
+                pop();
+            }
+
             dog.display();
+        }
+
+        function mousePressed() {
+            let d = dist(mouseX, mouseY, dog.pos.x, dog.pos.y);
+            if (d < 50) {
+                isCaught = true;
+                // 點到後過 3 秒自動放開，讓牠繼續跑
+                setTimeout(() => { isCaught = false; }, 3000);
+            }
         }
 
         function windowResized() {
