@@ -1,182 +1,130 @@
 
-    <!DOCTYPE html>
-    <html lang="zh-TW">
-    <head>
-        <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-        <title>SealNews | 柴犬藝術 0.0</title>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
-        <style>body { font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }</style>
-    </head>
-    <body class="bg-slate-50 text-slate-900 transition-colors duration-1000">
-        <header class="bg-white/80 backdrop-blur-md border-b px-6 py-8 text-center shadow-sm sticky top-0 z-50">
-            <h1 class="text-4xl font-black text-slate-800 tracking-tight">SEAL NEWS</h1>
-            <p class="text-slate-500 mt-2 font-medium">2026-04-29 · 今日世界氣氛：充滿希望</p>
-        </header>
-
-        <main class="max-w-6xl mx-auto px-6 py-10">
-            <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" class="block">
-                <section class="relative rounded-3xl overflow-hidden mb-16 shadow-2xl aspect-[16/9] md:aspect-[21/9] group cursor-pointer">
-                    <img src="https://apod.nasa.gov/apod/image/2604/moon_venus_pleiades_zoom.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="NASA APOD">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 text-white">
-                        <span class="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full w-max mb-3">NASA Daily Exploration</span>
-                        <h2 class="text-2xl md:text-4xl font-bold mb-2 group-hover:underline">月亮、金星和昴宿星團</h2>
-                        <p class="text-gray-200 text-sm md:text-base line-clamp-2 max-w-2xl">不，地球最近並沒有再獲得六顆衛星！今天的 APOD 是 4 月 19 日黃昏到傍晚時，追蹤月球、金星和昴宿星團穿過西西里島南部天空的圖像組合。從 2023 年到 2029 年，由於昴宿星團位於黃道面，昴宿星團和月球每月「訪問」一次。2026 年 4 月，他們與金星形成了天體排列。昴宿星團（梅西耶 4...</p>
-                    </div>
-                </section>
-            </a>
-
-            <section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇹🇼 台灣焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <a href="https://www.cna.com.tw/news/afe/202505055002.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">新台幣繼續衝 早盤再度飆漲逾1元衝上29元</h3>
-                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
-                </a>
-                <a href="https://www.cna.com.tw/news/ahel/202505055001.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">早安世界》本週2波鋒面接力晴雨交替 6、7日各地恐有大雨</h3>
-                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
-                </a>
-                <a href="https://www.cna.com.tw/news/afe/202505050023.aspx" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">新台幣開盤為30.91元 早盤勁揚逾8角</h3>
-                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
-                </a></div></section><section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇯🇵 日本焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <a href="https://news.yahoo.co.jp/pickup/6578097?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">聯合會主席：無須擴大自由裁量勞工製度</h3>
-                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
-                </a>
-                <a href="https://news.yahoo.co.jp/pickup/6578093?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">消費者事務局警告兒童謹防墜落事故</h3>
-                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
-                </a>
-                <a href="https://news.yahoo.co.jp/pickup/6578092?source=rss" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">山田市長辦公室所在樓層等候的電動車</h3>
-                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
-                </a></div></section><section class="mb-12"><h2 class="text-2xl font-bold mb-6 flex items-center">🇺🇸 美國焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxOeGhfSmI5ckkzRy1qZkpqYVRISGR0RjJMYkFvbG9jUVBGa2Nfbl9MTDNqbWt0d3dTZU9vVmRaWXVQQ1UxYlhaTVM2eGd2bG5UNVphc3lnTXJOLTZLdF9jTXViODRWZkYyOTFoS3JtWHNjS1M3SEl5emo0MG9uZ25LcVNSWU5zdmxhT3doN0tJdU9BeHdscDg0MTRXSWJnZ28?oc=5" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">美聯社消息人士稱，雄獅隊選擇了賈米爾·吉布斯的第5年選擇權，並拒絕傑克·坎貝爾的選擇權 - 美聯社新聞</h3>
-                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
-                </a>
-                <a href="https://news.google.com/rss/articles/CBMirAFBVV95cUxOZzF1c3A1Q05JMVo5UDZHNFJ5N1l0bDNyZmlpVmV0cmp5VUFtVEszMUg3YUVvNkhIN3hLVWJHZldONWpHeXA4WXEybnE5YjZwaGxfVjlRZ0Nqck92elUtYWZPSHZtTEJMbnR6SE1GaGFLSVdCLVFfVGJJMXZMb1BIbS1EQVNMbm1Xd1IzNFpmb3VNakZoUlpWZG5nWklCa3BSd3ZWVk9JU2R2d1Jf?oc=5" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">阿爾迪計劃在 2027 年底之前從其產品中去除 44 種成分 - 阿拉斯加新聞來源</h3>
-                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
-                </a>
-                <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxPVHFhcEM5cXRPaW5PV21BUVI0dDVwZkZGQnZidFhTd3ZMSGpBRkJtZjVmOExWVGFVN1lGbS01WlBJV1dxZExQbUk0X3IyaEdjOEM5aEE4SEpvY3BjRXY1STRCSzRXS0taWi1RMEVWSTdSYnprdC1TZk1yVUxKV2RzdmN3UHJEOVpBeWtDR1BjVFNwWDRMc21yWDg0WS0zRVozczZVd3d4SnVVNXBNN0lkTDJrNHNUQUR4T1J3MTBCUXN1TF9uOG83UQ?oc=5" target="_blank" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <h3 class="font-bold text-gray-800 group-hover:text-blue-600 mb-2 leading-relaxed">美聯社消息人士稱，2024 年狀元秀特拉維斯·巴扎納 (Travis Bazzana) 將於週二被徵召入伍 - Spectrum News</h3>
-                    <span class="text-blue-500 text-sm font-medium">閱讀更多 →</span>
-                </a></div></section>
-
-            <section class="mt-20 border-t pt-10 text-center">
-                <h2 class="text-2xl font-bold text-slate-800 mb-2">柴犬的矛盾藝術 0.0</h2>
-                <p class="text-sm text-slate-500 mb-6">點擊狗狗試著「套上項圈」吧！</p>
-                <div id="dog-canvas-container" class="w-full h-[350px] bg-white/50 rounded-3xl shadow-inner relative overflow-hidden"></div>
-            </section>
-        </main>
-
-        <footer class="text-center py-12 text-slate-400 text-sm font-light">
-            &copy; 2026-04-29 SealNews Automation
-        </footer>
-
-        <script>
-        let dogImg, collarImg, caughtImg, pawImg;
-        let dog;
-        let isCaught = false;
-
-        function preload() {
-            dogImg = loadImage('https://img.icons8.com/color/96/shiba-inu.png'); 
-            caughtImg = loadImage('https://img.icons8.com/color/96/dog-collar.png'); // 戴上項圈的示意
-            pawImg = loadImage('https://img.icons8.com/color/48/dog-paw.png');
-            collarImg = 'https://img.icons8.com/color/48/dog-collar.png';
-        }
-
-        function setup() {
-            let container = document.getElementById('dog-canvas-container');
-            let canvas = createCanvas(container.offsetWidth, 350);
-            canvas.parent('dog-canvas-container');
-            container.style.cursor = `url('${collarImg}') 24 24, auto`;
-
-            dog = {
-                pos: createVector(width/2, height/2),
-                angle: 0,
-                rotation: 0,
-                speed: 2.5,
-                display: function() {
-                    push();
-                    translate(this.pos.x, this.pos.y);
-                    rotate(this.rotation);
-                    imageMode(CENTER);
-                    if (isCaught) {
-                        image(dogImg, 0, 0, 90, 90);
-                        // 在狗狗身上疊加一個項圈圖標
-                        image(caughtImg, 0, 15, 40, 40);
-                    } else {
-                        image(dogImg, 0, 0, 80, 80);
-                    }
-                    pop();
-                }
-            };
-            background(255);
-        }
-
-        function draw() {
-            if (isCaught) {
-                background(255, 5); // 停止時留下淡出的殘影
-                dog.rotation = sin(frameCount * 0.1) * 0.1; // 搖頭晃腦
-                dog.display();
-                return;
-            }
-
-            background(255, 40); 
-            let target = createVector(mouseX, mouseY);
-            
-            if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {
-                target = createVector(
-                    width/2 + sin(frameCount * 0.01) * (width/3),
-                    height/2 + cos(frameCount * 0.015) * 80
-                );
-            }
-
-            let d = p5.Vector.dist(dog.pos, target);
-            if (d < 120) {
-                // 興奮繞圈（速度變慢一點）
-                dog.angle += 0.12;
-                dog.pos.x = target.x + cos(dog.angle) * 85;
-                dog.pos.y = target.y + sin(dog.angle) * 85;
-                dog.rotation = dog.angle + PI/2;
-            } else {
-                // 追逐
-                let vel = p5.Vector.sub(target, dog.pos);
-                dog.rotation = vel.heading() + PI/2;
-                vel.setMag(dog.speed);
-                dog.pos.add(vel);
-            }
-
-            // 留下腳印
-            if (frameCount % 15 == 0) {
-                push();
-                translate(dog.pos.x, dog.pos.y);
-                rotate(dog.rotation);
-                tint(255, 100);
-                image(pawImg, 10, 10, 15, 15);
-                pop();
-            }
-
-            dog.display();
-        }
-
-        function mousePressed() {
-            let d = dist(mouseX, mouseY, dog.pos.x, dog.pos.y);
-            if (d < 50) {
-                isCaught = true;
-                // 點到後過 3 秒自動放開，讓牠繼續跑
-                setTimeout(() => { isCaught = false; }, 3000);
-            }
-        }
-
-        function windowResized() {
-            let container = document.getElementById('dog-canvas-container');
-            resizeCanvas(container.offsetWidth, 350);
-        }
-        </script>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <title>SealNews | 柴犬藝術</title>
+</head>
+<body class="bg-slate-50 text-slate-900">
+    <header class="bg-white border-b py-6 text-center shadow-sm sticky top-0 z-50">
+        <h1 class="text-3xl font-black">SEAL NEWS</h1>
+        <p class="text-gray-500 text-sm">2026-04-29</p>
+    </header>
+    <main class="max-w-6xl mx-auto px-6 py-10">
+        <section class="rounded-3xl overflow-hidden shadow-xl mb-10 bg-black aspect-video relative">
+            <img src="https://apod.nasa.gov/apod/image/2604/moon_venus_pleiades_zoom.jpg" class="w-full h-full object-cover opacity-80">
+            <div class="absolute bottom-0 p-6 bg-gradient-to-t from-black text-white w-full">
+                <h2 class="text-xl font-bold">The Moon, Venus, and the Pleiades</h2>
+                <p class="text-sm opacity-80">No, Earth did not recently acquire six more moons!  Today’s APOD is a combination of images following the Moon, Venus, and the Pleiades across a south...</p>
+            </div>
+        </section>
+        <h2 class="text-2xl font-bold mt-10 mb-4">🇹🇼 台灣焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="https://www.cna.com.tw/news/afe/202505055002.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
+                        <h3 class="font-bold text-sm">新台幣繼續衝 早盤再度飆漲逾1元衝上29元</h3>
+                    </a>
+                    <a href="https://www.cna.com.tw/news/ahel/202505055001.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
+                        <h3 class="font-bold text-sm">早安世界》本週2波鋒面接力晴雨交替 6、7日各地恐有大雨</h3>
+                    </a>
+                    <a href="https://www.cna.com.tw/news/afe/202505050023.aspx" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
+                        <h3 class="font-bold text-sm">新台幣開盤為30.91元 早盤勁揚逾8角</h3>
+                    </a></div><h2 class="text-2xl font-bold mt-10 mb-4">🇯🇵 日本焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="https://news.yahoo.co.jp/pickup/6578102?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
+                        <h3 class="font-bold text-sm">岩手火災 避難指示の大半を解除</h3>
+                    </a>
+                    <a href="https://news.yahoo.co.jp/pickup/6578097?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
+                        <h3 class="font-bold text-sm">連合会長 裁量労働制の拡充は不要</h3>
+                    </a>
+                    <a href="https://news.yahoo.co.jp/pickup/6578093?source=rss" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
+                        <h3 class="font-bold text-sm">子の転落事故に注意喚起 消費者庁</h3>
+                    </a></div><h2 class="text-2xl font-bold mt-10 mb-4">🇺🇸 美國焦點</h2><div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxOeGhfSmI5ckkzRy1qZkpqYVRISGR0RjJMYkFvbG9jUVBGa2Nfbl9MTDNqbWt0d3dTZU9vVmRaWXVQQ1UxYlhaTVM2eGd2bG5UNVphc3lnTXJOLTZLdF9jTXViODRWZkYyOTFoS3JtWHNjS1M3SEl5emo0MG9uZ25LcVNSWU5zdmxhT3doN0tJdU9BeHdscDg0MTRXSWJnZ28?oc=5" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
+                        <h3 class="font-bold text-sm">Lions pick up Jahmyr Gibbs' 5th-year option and decline option for Jack Campbell, AP source says - AP News</h3>
+                    </a>
+                    <a href="https://news.google.com/rss/articles/CBMirAFBVV95cUxOZzF1c3A1Q05JMVo5UDZHNFJ5N1l0bDNyZmlpVmV0cmp5VUFtVEszMUg3YUVvNkhIN3hLVWJHZldONWpHeXA4WXEybnE5YjZwaGxfVjlRZ0Nqck92elUtYWZPSHZtTEJMbnR6SE1GaGFLSVdCLVFfVGJJMXZMb1BIbS1EQVNMbm1Xd1IzNFpmb3VNakZoUlpWZG5nWklCa3BSd3ZWVk9JU2R2d1Jf?oc=5" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
+                        <h3 class="font-bold text-sm">Aldi is removing 44 ingredients from its products by the end of 2027 - Alaska's News Source</h3>
+                    </a>
+                    <a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxPVHFhcEM5cXRPaW5PV21BUVI0dDVwZkZGQnZidFhTd3ZMSGpBRkJtZjVmOExWVGFVN1lGbS01WlBJV1dxZExQbUk0X3IyaEdjOEM5aEE4SEpvY3BjRXY1STRCSzRXS0taWi1RMEVWSTdSYnprdC1TZk1yVUxKV2RzdmN3UHJEOVpBeWtDR1BjVFNwWDRMc21yWDg0WS0zRVozczZVd3d4SnVVNXBNN0lkTDJrNHNUQUR4T1J3MTBCUXN1TF9uOG83UQ?oc=5" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition">
+                        <h3 class="font-bold text-sm">Guardians prospect Travis Bazzana, 2024 top overall pick, will be called up Tuesday, AP source says - Spectrum News</h3>
+                    </a></div>
+        <section class="mt-20 border-t pt-10 text-center">
+            <h2 class="text-2xl font-bold mb-2">柴犬的矛盾藝術 0.0</h2>
+            <p class="text-sm text-slate-500 mb-6">點擊柴犬可以套上項圈喔！</p>
+            <div id="dog-canvas-container" class="w-full h-[350px] bg-white rounded-3xl shadow-inner relative overflow-hidden"></div>
+        </section>
+    </main>
+    <footer class="text-center py-10 text-gray-400 text-xs border-t mt-10">
+        © 2026-04-29 SealNews Automation
+    </footer>
+    <script>
     
+let dogImg, pawImg;
+let dog;
+let isCaught = false;
+
+function preload() {
+    dogImg = loadImage('https://img.icons8.com/color/96/shiba-inu.png'); 
+    pawImg = loadImage('https://img.icons8.com/color/48/dog-paw.png');
+}
+
+function setup() {
+    let container = document.getElementById('dog-canvas-container');
+    let canvas = createCanvas(container.offsetWidth, 350);
+    canvas.parent('dog-canvas-container');
+    container.style.cursor = "url('https://img.icons8.com/color/32/dog-collar.png') 16 16, auto";
+    dog = { pos: createVector(width/2, height/2), angle: 0, rotation: 0 };
+}
+
+function draw() {
+    background(255, isCaught ? 15 : 45);
+    let target = createVector(mouseX, mouseY);
+    if (mouseX <= 0 || mouseX >= width || mouseY <= 0 || mouseY >= height) {
+        target = createVector(width/2 + sin(frameCount*0.01)*200, height/2 + cos(frameCount*0.015)*100);
+    }
+    if (!isCaught) {
+        let d = dist(dog.pos.x, dog.pos.y, target.x, target.y);
+        if (d < 120) {
+            dog.angle += 0.08;
+            dog.pos.x = target.x + cos(dog.angle) * 85;
+            dog.pos.y = target.y + sin(dog.angle) * 85;
+            dog.rotation = dog.angle + PI/2;
+        } else {
+            let v = p5.Vector.sub(target, dog.pos);
+            dog.rotation = v.heading() + PI/2;
+            v.setMag(2.2);
+            dog.pos.add(v);
+        }
+        if (frameCount % 25 == 0) {
+            push(); translate(dog.pos.x, dog.pos.y); rotate(dog.rotation);
+            tint(255, 60); image(pawImg, 10, 10, 15, 15); pop();
+        }
+    }
+    push();
+    translate(dog.pos.x, dog.pos.y);
+    rotate(isCaught ? sin(frameCount*0.1)*0.1 : dog.rotation);
+    imageMode(CENTER);
+    image(dogImg, 0, 0, 80, 80);
+    if (isCaught) {
+        textSize(24); textAlign(CENTER); text('❤️', 0, -45);
+    }
+    pop();
+}
+
+function mousePressed() {
+    let d = dist(mouseX, mouseY, dog.pos.x, dog.pos.y);
+    if (d < 50) {
+        isCaught = true;
+        setTimeout(() => { isCaught = false; }, 3000);
+    }
+}
+
+function windowResized() {
+    let container = document.getElementById('dog-canvas-container');
+    if(container) resizeCanvas(container.offsetWidth, 350);
+}
+
+    </script>
+</body>
+</html>
